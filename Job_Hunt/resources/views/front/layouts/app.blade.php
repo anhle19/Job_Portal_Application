@@ -148,7 +148,7 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="right">
                         <ul>
-                            <li><a href="terms.html">Terms of Use</a></li>
+                            <li><a href="{{ route('terms') }}">Terms of Use</a></li>
                             <li>
                                 <a href="privacy.html">Privacy Policy</a>
                             </li>
