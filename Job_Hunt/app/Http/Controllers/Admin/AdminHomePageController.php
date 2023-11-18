@@ -22,6 +22,8 @@ class AdminHomePageController extends Controller
             'job_category' => 'required',
             'job_location' => 'required',
             'search' => 'required',
+            'job_category_heading' => 'required',
+            'job_category_status' => 'required'
         ]);
 
         //Update photo
@@ -47,6 +49,9 @@ class AdminHomePageController extends Controller
         $page_home_data->job_category = $request->job_category;
         $page_home_data->job_location = $request->job_location;
         $page_home_data->search = $request->search;
+        $page_home_data->job_category_heading = $request->job_category_heading;
+        $page_home_data->job_category_subheading = $request->job_category_subheading;
+        $page_home_data->job_category_status = $request->job_category_status;
         $page_home_data->update();
 
         return redirect()->back()->with('success', 'Data information is saved successfully.');
