@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('heading', 'Create Job Category')
+@section('heading', 'Edit Job Category')
 
 @section('button')
 <div>

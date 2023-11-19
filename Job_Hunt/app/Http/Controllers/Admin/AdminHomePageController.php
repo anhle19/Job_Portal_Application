@@ -23,7 +23,9 @@ class AdminHomePageController extends Controller
             'job_location' => 'required',
             'search' => 'required',
             'job_category_heading' => 'required',
-            'job_category_status' => 'required'
+            'job_category_status' => 'required',
+            'why_choose_heading' => 'required',
+            'why_choose_status' => 'required'
         ]);
 
         //Update photo
@@ -43,6 +45,22 @@ class AdminHomePageController extends Controller
             $page_home_data->background = $final_name;
         }
 
+        if ($request->hasFile('why_choose_background')) {
+            $request->validate([
+                'why_choose_background' => 'required|mimes:png,jpg,jpeg,gif'
+            ]);
+
+            //Remove the old photo
+            unlink(public_path('uploads/'.$page_home_data->why_choose_background));
+            //Get extension of the new photo
+            $ext1 = $request->file('why_choose_background')->extension();
+            $final_name1 = 'why_choose_home'.'.'.$ext1;
+
+            //Move the new photo
+            $request->file('why_choose_background')->move(public_path('uploads/'),$final_name1);
+            $page_home_data->why_choose_background = $final_name1;
+        }
+
         $page_home_data->heading = $request->heading;
         $page_home_data->text = $request->text;
         $page_home_data->job_title = $request->job_title;
@@ -52,6 +70,9 @@ class AdminHomePageController extends Controller
         $page_home_data->job_category_heading = $request->job_category_heading;
         $page_home_data->job_category_subheading = $request->job_category_subheading;
         $page_home_data->job_category_status = $request->job_category_status;
+        $page_home_data->why_choose_heading = $request->why_choose_heading;
+        $page_home_data->why_choose_subheading = $request->why_choose_subheading;
+        $page_home_data->why_choose_status = $request->why_choose_status;
         $page_home_data->update();
 
         return redirect()->back()->with('success', 'Data information is saved successfully.');
