@@ -14,14 +14,25 @@
                     title="Dashboard"><i class="fas fa-hand-point-right"></i>
                     <span>Dashboard</span></a></li>
 
-            <li class="nav-item dropdown {{ Request::is('admin/home-page') ? 'active' : '' }}">
+            <li class="nav-item dropdown {{ Request::is('admin/home-page')||Request::is('admin/faq-page')||Request::is('admin/faq-page')||
+            Request::is('admin/term-page') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-hand-point-right"></i><span>Page
                         Settings</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ Request::is('admin/home-page') ? 'active' : '' }}"><a class="nav-link"
                             href="{{ route('admin_home_page') }}"><i class="fas fa-angle-right"></i> Home</a>
                     </li>
-                    <li class=""><a class="nav-link" href=""><i class="fas fa-angle-right"></i> Terms</a>
+                    <li class="{{ Request::is('admin/faq-page') ? 'active' : '' }}"><a class="nav-link" 
+                        href="{{ route('admin_faq_page') }}"><i class="fas fa-angle-right"></i> FAQs</a>
+                    </li>
+                    <li class="{{ Request::is('admin/blog-page') ? 'active' : '' }}"><a class="nav-link" 
+                        href="{{ route('admin_blog_page') }}"><i class="fas fa-angle-right"></i> Blog</a>
+                    </li>
+                    <li class="{{ Request::is('admin/term-page') ? 'active' : '' }}"><a class="nav-link" 
+                        href="{{ route('admin_term_page') }}"><i class="fas fa-angle-right"></i> Terms of Use</a>
+                    </li>
+                    <li class="{{ Request::is('admin/privacy-page') ? 'active' : '' }}"><a class="nav-link" 
+                        href="{{ route('admin_privacy_page') }}"><i class="fas fa-angle-right"></i> Privacy Policy</a>
                     </li>
                 </ul>
             </li>
@@ -43,6 +54,24 @@
                 <a class="nav-link" href="{{ route('admin_why_choose') }}" data-bs-toggle="tooltip"
                     data-bs-placement="right" title="Why Choose Items"><i class="fas fa-hand-point-right"></i>
                     <span>Why Choose Items</span></a>
+            </li>
+
+            <li class="nav-item dropdown {{ Request::is('admin/testimonial/*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('admin_testimonial') }}" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Testimonials"><i class="fas fa-hand-point-right"></i>
+                    <span>Testimonials</span></a>
+            </li>
+
+            <li class="nav-item dropdown {{ Request::is('admin/post/*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('admin_post') }}" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Posts"><i class="fas fa-hand-point-right"></i>
+                    <span>Post</span></a>
+            </li>
+
+            <li class="nav-item dropdown {{ Request::is('admin/faq/*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('admin_faq') }}" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="FAQs"><i class="fas fa-hand-point-right"></i>
+                    <span>FAQ</span></a>
             </li>
 
         </ul>

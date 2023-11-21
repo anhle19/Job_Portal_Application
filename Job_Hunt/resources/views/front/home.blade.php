@@ -156,13 +156,14 @@
     </div>
     @endif
 
+    @if ($home_page_data->featured_job_status == 'Show')
     <div class="job">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="heading">
-                        <h2>Featured Jobs</h2>
-                        <p>Find the awesome jobs that matches your skill</p>
+                        <h2>{{ $home_page_data->featured_job_heading }}</h2>
+                        <p>{{ $home_page_data->featured_job_subheading }}</p>
                     </div>
                 </div>
             </div>
@@ -345,147 +346,85 @@
             </div>
         </div>
     </div>
+    @endif
 
-    <div class="testimonial" style="background-image: url({{ asset('uploads/banner11.jpg') }})">
+    @if ($home_page_data->testimonial_status == 'Show')
+    <div class="testimonial" style="background-image: url({{ asset('uploads/'.$home_page_data->testimonial_background) }})">
         <div class="bg"></div>
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h2 class="main-header">Our Happy Clients</h2>
+                    <h2 class="main-header">{{ $home_page_data->heading }}</h2>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
                     <div class="testimonial-carousel owl-carousel">
+                        
+                        @foreach ($testimonials as $item)
                         <div class="item">
                             <div class="photo">
-                                <img src="{{ asset('uploads/t1.jpg') }}" alt="" />
+                                <img src="{{ asset('uploads/'.$item->photo) }}" alt="" />
                             </div>
                             <div class="text">
-                                <h4>Robert Krol</h4>
-                                <p>CEO, ABC Company</p>
+                                <h4>{{ $item->name }}</h4>
+                                <p>{{ $item->designation }}</p>
                             </div>
                             <div class="description">
                                 <p>
-                                    Lorem ipsum dolor sit amet, an labores
-                                    explicari qui, eu nostrum copiosae
-                                    argumentum has. Latine propriae quo no,
-                                    unum ridens. Lorem ipsum dolor sit amet,
-                                    an labores explicari qui, eu nostrum
-                                    copiosae argumentum has. Latine propriae
-                                    quo no, unum ridens.
+                                    {{ $item->comment }}
                                 </p>
                             </div>
                         </div>
-                        <div class="item">
-                            <div class="photo">
-                                <img src="{{ asset('uploads/t2.jpg') }}" alt="" />
-                            </div>
-                            <div class="text">
-                                <h4>Sal Harvey</h4>
-                                <p>Director, DEF Company</p>
-                            </div>
-                            <div class="description">
-                                <p>
-                                    Lorem ipsum dolor sit amet, an labores
-                                    explicari qui, eu nostrum copiosae
-                                    argumentum has. Latine propriae quo no,
-                                    unum ridens. Lorem ipsum dolor sit amet,
-                                    an labores explicari qui, eu nostrum
-                                    copiosae argumentum has. Latine propriae
-                                    quo no, unum ridens.
-                                </p>
-                            </div>
-                        </div>
+                        @endforeach
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    @endif
 
+    @if ($home_page_data->blog_status == 'Show')
     <div class="blog">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="heading">
-                        <h2>Latest News</h2>
+                        <h2>{{ $home_page_data->blog_heading }}</h2>
                         <p>
-                            Check our latest news from the following section
+                            {{ $home_page_data->blog_subheading }}
                         </p>
                     </div>
                 </div>
             </div>
             <div class="row">
+                @foreach ($posts as $item)
                 <div class="col-lg-4 col-md-6">
                     <div class="item">
                         <div class="photo">
-                            <img src="{{ asset('uploads/banner1.jpg') }}" alt="" />
+                            <img src="{{ asset('uploads/'.$item->photo) }}" alt="" />
                         </div>
                         <div class="text">
                             <h2>
-                                <a href="post.html">This is a sample blog post title</a>
+                                <a href="{{ route('post',$item->slug) }}">{{ $item->title }}</a>
                             </h2>
                             <div class="short-des">
                                 <p>
-                                    Lorem ipsum dolor sit amet, nibh saperet
-                                    te pri, at nam diceret disputationi. Quo
-                                    an consul impedit, usu possim evertitur
-                                    dissentiet ei.
+                                    {{ $item->short_description }}
                                 </p>
                             </div>
                             <div class="button">
-                                <a href="post.html" class="btn btn-primary">Read More</a>
+                                <a href="{{ route('post',$item->slug) }}" class="btn btn-primary">Read More</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="item">
-                        <div class="photo">
-                            <img src="{{ asset('uploads/banner2.jpg') }}" alt="" />
-                        </div>
-                        <div class="text">
-                            <h2>
-                                <a href="post.html">This is a sample blog post title</a>
-                            </h2>
-                            <div class="short-des">
-                                <p>
-                                    Nec in rebum primis causae. Affert
-                                    iisque ex pri, vis utinam vivendo
-                                    definitionem ad, nostrum omnes que per
-                                    et. Omnium antiopam.
-                                </p>
-                            </div>
-                            <div class="button">
-                                <a href="post.html" class="btn btn-primary">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="item">
-                        <div class="photo">
-                            <img src="{{ asset('uploads/banner3.jpg') }}" alt="" />
-                        </div>
-                        <div class="text">
-                            <h2>
-                                <a href="post.html">This is a sample blog post title</a>
-                            </h2>
-                            <div class="short-des">
-                                <p>
-                                    Id pri placerat voluptatum, vero dicunt
-                                    dissentiunt eum et, adhuc iisque vis no.
-                                    Eu suavitate conten tiones definitionem
-                                    mel, ex vide.
-                                </p>
-                            </div>
-                            <div class="button">
-                                <a href="post.html" class="btn btn-primary">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+                
             </div>
         </div>
     </div>
+    @endif
+    
 @endsection

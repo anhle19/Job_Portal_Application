@@ -10,8 +10,9 @@
 
     $('.icp_demo').iconpicker();
 
-    $(document).ready(function() {
-        $('.snote').summernote();
+    tinymce.init({
+        selector: ".editor",
+        height: "300",
     });
 
     $('.datepicker').datepicker({ format: "yyyy/mm/dd" });

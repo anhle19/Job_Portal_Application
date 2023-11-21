@@ -5,8 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <meta name="description" content="" />
-    <title>Job Hunt</title>
+    <title>@yield('seo_title')</title>
+    <meta name="description" content="@yield('seo_meta_description')" />
 
     <link rel="icon" type="image/png" href="{{ asset('uploads/favicon.png') }}" />
 
@@ -150,7 +150,7 @@
                         <ul>
                             <li><a href="{{ route('terms') }}">Terms of Use</a></li>
                             <li>
-                                <a href="privacy.html">Privacy Policy</a>
+                                <a href="{{ route('privacy') }}">Privacy Policy</a>
                             </li>
                         </ul>
                     </div>

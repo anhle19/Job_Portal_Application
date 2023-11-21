@@ -29,6 +29,15 @@ return new class extends Migration
             $table->text('why_choose_subheading')->nullable();
             $table->text('why_choose_status');
             $table->text('why_choose_background');
+            $table->text('featured_job_heading');
+            $table->text('featured_job_subheading')->nullable();
+            $table->text('featured_job_status');
+            $table->text('testimonial_heading');
+            $table->text('testimonial_background');
+            $table->text('testimonial_status');
+            $table->text('blog_heading');
+            $table->text('blog_subheading')->nullable();
+            $table->text('blog_status');
             $table->timestamps();
         });
     }

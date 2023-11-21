@@ -27,12 +27,25 @@
                                             data-bs-target="#v-pills-3" type="button" role="tab"
                                             aria-controls="v-pills-3" aria-selected="false">Why Choose</button>
 
+                                        <button class="nav-link" id="v-pills-4-tab" data-bs-toggle="pill"
+                                            data-bs-target="#v-pills-4" type="button" role="tab"
+                                            aria-controls="v-pills-4" aria-selected="false">Featured Job</button>
+
+                                        <button class="nav-link" id="v-pills-5-tab" data-bs-toggle="pill"
+                                            data-bs-target="#v-pills-5" type="button" role="tab"
+                                            aria-controls="v-pills-5" aria-selected="false">Testimonial</button>
+
+                                        <button class="nav-link" id="v-pills-6-tab" data-bs-toggle="pill"
+                                            data-bs-target="#v-pills-6" type="button" role="tab"
+                                            aria-controls="v-pills-6" aria-selected="false">Blog</button>
+
                                     </div>
                                 </div>
                                 <div class="col-lg-9 col-md-12">
                                     <div class="tab-content" id="v-pills-tabContent">
+
                                         <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel"
-                                            aria-labelledby="v-pills-1-tab" tabindex="0">
+                                            aria-labelledby="v-pills-1-tab" tabindex="1">
                                             {{-- Search Section Start --}}
                                             <div class="row">
                                                 <div class="col-md-12">
@@ -100,8 +113,8 @@
 
                                         </div>
 
-                                        <div class="tab-pane fade show active" id="v-pills-2" role="tabpanel"
-                                            aria-labelledby="v-pills-2-tab" tabindex="0">
+                                        <div class="tab-pane fade" id="v-pills-2" role="tabpanel"
+                                            aria-labelledby="v-pills-2-tab" tabindex="2">
                                             {{-- Category Section Start --}}
                                             <div class="row">
                                                 <div class="col-md-12">
@@ -117,7 +130,7 @@
                                                             name="job_category_subheading"
                                                             value="{{ $page_home_data->job_category_subheading }}">
                                                     </div>
-                                                    
+
                                                     <div class="mb-4">
                                                         <label class="form-label">Status *</label>
                                                         <select name="job_category_status" class="form-control">
@@ -135,8 +148,8 @@
                                         </div>
 
 
-                                        <div class="tab-pane fade show active" id="v-pills-3" role="tabpanel"
-                                            aria-labelledby="v-pills-3-tab" tabindex="0">
+                                        <div class="tab-pane fade" id="v-pills-3" role="tabpanel"
+                                            aria-labelledby="v-pills-3-tab" tabindex="3">
                                             {{-- Why Choose Section Start --}}
                                             <div class="row">
                                                 <div class="col-md-12">
@@ -181,6 +194,115 @@
                                             </div>
                                             {{-- Why Choose Section End --}}
                                         </div>
+
+
+                                        <div class="tab-pane fade" id="v-pills-4" role="tabpanel"
+                                            aria-labelledby="v-pills-4-tab" tabindex="4">
+                                            {{-- Featured Job Section Start --}}
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="mb-4">
+                                                        <label class="form-label">Heading *</label>
+                                                        <input type="text" class="form-control"
+                                                            name="featured_job_heading"
+                                                            value="{{ $page_home_data->featured_job_heading }}">
+                                                    </div>
+                                                    <div class="mb-4">
+                                                        <label class="form-label">Sub Heading *</label>
+                                                        <input type="text" class="form-control"
+                                                            name="featured_job_subheading"
+                                                            value="{{ $page_home_data->featured_job_subheading }}">
+                                                    </div>
+                                                    <div class="mb-4">
+                                                        <label class="form-label">Status *</label>
+                                                        <select name="featured_job_status" class="form-control">
+                                                            <option value="Show"
+                                                                @if ($page_home_data->featured_job_status == 'Show') selected @endif>Show
+                                                            </option>
+                                                            <option value="Hide"
+                                                                @if ($page_home_data->featured_job_status == 'Hide') selected @endif>Hide
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{-- Featured Job Section End --}}
+                                        </div>
+
+                                        <div class="tab-pane fade" id="v-pills-5" role="tabpanel"
+                                            aria-labelledby="v-pills-5-tab" tabindex="5">
+                                            {{-- Testimonial Section Start --}}
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="mb-4">
+                                                        <label class="form-label">Existing Background *</label>
+                                                        <div>
+                                                            <img src="{{ asset('uploads/' . $page_home_data->testimonial_background) }}"
+                                                                alt="" class="profile-photo w_300">
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-4">
+                                                        <label class="form-label">Change Background *</label>
+                                                        <div>
+                                                            <input type="file" class="form-control mt_10"
+                                                                name="testimonial_background">
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-4">
+                                                        <label class="form-label">Heading *</label>
+                                                        <input type="text" class="form-control"
+                                                            name="testimonial_heading"
+                                                            value="{{ $page_home_data->testimonial_heading }}">
+                                                    </div>
+                                                    <div class="mb-4">
+                                                        <label class="form-label">Status *</label>
+                                                        <select name="testimonial_status" class="form-control">
+                                                            <option value="Show"
+                                                                @if ($page_home_data->testimonial_status == 'Show') selected @endif>Show
+                                                            </option>
+                                                            <option value="Hide"
+                                                                @if ($page_home_data->testimonial_status == 'Hide') selected @endif>Hide
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{-- Testimonial Section End --}}
+                                        </div>
+
+                                        <div class="tab-pane fade" id="v-pills-6" role="tabpanel"
+                                            aria-labelledby="v-pills-6-tab" tabindex="6">
+                                            {{-- Blog Section Start --}}
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="mb-4">
+                                                        <label class="form-label">Heading *</label>
+                                                        <input type="text" class="form-control"
+                                                            name="blog_heading"
+                                                            value="{{ $page_home_data->blog_heading }}">
+                                                    </div>
+                                                    <div class="mb-4">
+                                                        <label class="form-label">Sub Heading *</label>
+                                                        <input type="text" class="form-control"
+                                                            name="blog_subheading"
+                                                            value="{{ $page_home_data->blog_subheading }}">
+                                                    </div>
+                                                    <div class="mb-4">
+                                                        <label class="form-label">Status *</label>
+                                                        <select name="blog_status" class="form-control">
+                                                            <option value="Show"
+                                                                @if ($page_home_data->blog_status == 'Show') selected @endif>Show
+                                                            </option>
+                                                            <option value="Hide"
+                                                                @if ($page_home_data->blog_status == 'Hide') selected @endif>Hide
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{-- Blog Section End --}}
+                                        </div>
+
                                     </div>
                                     <div class="mb-4">
                                         <label class="form-label"></label>
