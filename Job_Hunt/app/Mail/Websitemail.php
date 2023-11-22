@@ -47,8 +47,7 @@ class Websitemail extends Mailable
             view: 'email.email',
             with: [
                 'subject' => $this->data['subject'],
-                'content' => $this->data['content'],
-                'reset_link' => $this->data['reset_link']
+                'body' => $this->data['message']
             ]
         );
     }

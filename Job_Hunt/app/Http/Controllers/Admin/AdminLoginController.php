@@ -68,11 +68,11 @@ class AdminLoginController extends Controller
         $reset_link = url('admin/reset-password/'.$token.'/'.$request->email);
         //Email content
         $subject = 'Reset Password';
-        $message = 'Click here to reset your password';
+        $message = 'Please click on the following link: <br>';
+        $message = '<a href="'.$reset_link.'">Click here</a>';
         $data = array(
             'subject' => $subject,
-            'content' => $message,
-            'reset_link' => $reset_link
+            'message' => $message,
         );
         //Send email
         Mail::to($request->email)->send(new Websitemail($data));
