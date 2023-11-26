@@ -6,6 +6,9 @@ use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\TermsController;
+use App\Http\Controllers\Front\LoginController;
+use App\Http\Controllers\Front\SignupController;
+use App\Http\Controllers\Front\ForgetPasswordController;
 use App\Http\Controllers\Front\PrivacyController;
 use App\Http\Controllers\Admin\AdminHomePageController;
 use App\Http\Controllers\Admin\AdminJobCategoryPageController;
@@ -13,16 +16,20 @@ use App\Http\Controllers\Admin\AdminFaqPageController;
 use App\Http\Controllers\Admin\AdminContactPageController;
 use App\Http\Controllers\Admin\AdminBlogPageController;
 use App\Http\Controllers\Admin\AdminTermPageController;
+use App\Http\Controllers\Admin\AdminOtherPageController;
+use App\Http\Controllers\Admin\AdminPricingPageController;
 use App\Http\Controllers\Admin\AdminPrivacyPageController;
 use App\Http\Controllers\Admin\AdminJobCategoryController;
 use App\Http\Controllers\Admin\AdminWhyChooseController;
 use App\Http\Controllers\Admin\AdminTestimonialController;
 use App\Http\Controllers\Admin\AdminPostController;
 use App\Http\Controllers\Admin\AdminFaqController;
+use App\Http\Controllers\Admin\AdminPackageController;
 use App\Http\Controllers\Front\JobCategoryController;
 use App\Http\Controllers\Front\PostController;
 use App\Http\Controllers\Front\FaqController;
 use App\Http\Controllers\Front\ContactController;
+use App\Http\Controllers\Front\PricingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,7 +50,13 @@ Route::get('/post/{slug}', [PostController::class, 'detail'])->name('post');
 Route::get('/job_categories', [JobCategoryController::class, 'categories'])->name('job_categories');
 Route::get('/faq', [FaqController::class, 'index'])->name('faq');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::get('/pricing', [PricingController::class, 'index'])->name('pricing');
 Route::post('/contact-submit', [ContactController::class, 'submit'])->name('contact_submit');
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::get('/create-account', [SignupController::class, 'index'])->name('signup');
+Route::post('/company_signup_submit', [SignupController::class, 'company_signup_submit'])->name('company_signup_submit');
+Route::get('/company_signup_verify/{token}/{email}', [SignupController::class, 'company_signup_verify'])->name('company_signup_verify');
+Route::get('/forget-password', [ForgetPasswordController::class, 'index'])->name('forget_password');
 
 /* Admin */
 
@@ -82,6 +95,12 @@ Route::middleware(['admin:admin'])->group(function () {
     Route::get('/admin/job-categories-page', [AdminJobCategoryPageController::class, 'index'])->name('admin_job_categories_page');
     Route::post('/admin/job-categories-page/update', [AdminJobCategoryPageController::class, 'update'])->name('admin_job_categories_page_update');
 
+    Route::get('/admin/pricing-page', [AdminPricingPageController::class, 'index'])->name('admin_pricing_page');
+    Route::post('/admin/pricing-page/update', [AdminPricingPageController::class, 'update'])->name('admin_pricing_page_update');
+
+    Route::get('/admin/other-page', [AdminOtherPageController::class, 'index'])->name('admin_other_page');
+    Route::post('/admin/other-page/update', [AdminOtherPageController::class, 'update'])->name('admin_other_page_update');
+
     Route::get('/admin/job-category/view', [AdminJobCategoryController::class, 'index'])->name('admin_job_category');
     Route::get('/admin/job-category/create', [AdminJobCategoryController::class, 'create'])->name('admin_job_category_create');
     Route::post('/admin/job-category/store', [AdminJobCategoryController::class, 'store'])->name('admin_job_category_store');
@@ -95,7 +114,7 @@ Route::middleware(['admin:admin'])->group(function () {
     Route::get('/admin/why-choose/edit/{id}', [AdminWhyChooseController::class, 'edit'])->name('admin_why_choose_edit');
     Route::post('/admin/why-choose/update/{id}', [AdminWhyChooseController::class, 'update'])->name('admin_why_choose_update');
     Route::get('/admin/why-choose/delete/{id}', [AdminWhyChooseController::class, 'delete'])->name('admin_why_choose_delete');
-    
+
     Route::get('/admin/testimonial/view', [AdminTestimonialController::class, 'index'])->name('admin_testimonial');
     Route::get('/admin/testimonial/create', [AdminTestimonialController::class, 'create'])->name('admin_testimonial_create');
     Route::post('/admin/testimonial/store', [AdminTestimonialController::class, 'store'])->name('admin_testimonial_store');
@@ -116,4 +135,11 @@ Route::middleware(['admin:admin'])->group(function () {
     Route::get('/admin/faq/edit/{id}', [AdminFaqController::class, 'edit'])->name('admin_faq_edit');
     Route::post('/admin/faq/update/{id}', [AdminFaqController::class, 'update'])->name('admin_faq_update');
     Route::get('/admin/faq/delete/{id}', [AdminFaqController::class, 'delete'])->name('admin_faq_delete');
+
+    Route::get('/admin/package/view', [AdminPackageController::class, 'index'])->name('admin_package');
+    Route::get('/admin/package/create', [AdminPackageController::class, 'create'])->name('admin_package_create');
+    Route::post('/admin/package/store', [AdminPackageController::class, 'store'])->name('admin_package_store');
+    Route::get('/admin/package/edit/{id}', [AdminPackageController::class, 'edit'])->name('admin_package_edit');
+    Route::post('/admin/package/update/{id}', [AdminPackageController::class, 'update'])->name('admin_package_update');
+    Route::get('/admin/package/delete/{id}', [AdminPackageController::class, 'delete'])->name('admin_package_delete');
 });

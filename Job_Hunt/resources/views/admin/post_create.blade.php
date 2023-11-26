@@ -26,7 +26,7 @@
                             </div>
                             <div class="form-group mb-3">
                                 <label>Slug *</label>
-                                <input type="text" class="form-control" name="slug" value="{{ old('') }}">
+                                <input type="text" class="form-control" name="slug" value="{{ old('slug') }}">
                             </div>
                             <div class="form-group mb-3">
                                 <label>Short Description *</label>
