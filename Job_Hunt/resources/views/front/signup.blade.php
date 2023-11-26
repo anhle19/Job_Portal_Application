@@ -73,19 +73,19 @@
                                     @csrf
                                     <div class="mb-3">
                                         <label for="" class="form-label">Company Name *</label>
-                                        <input type="text" class="form-control" name="company_name" />
+                                        <input type="text" class="form-control" name="company_name" value="{{ old('company_name') }}"/>
                                     </div>
                                     <div class="mb-3">
                                         <label for="" class="form-label">Contact Person Name *</label>
-                                        <input type="text" class="form-control" name="person_name" />
+                                        <input type="text" class="form-control" name="person_name" value="{{ old('person_name') }}"/>
                                     </div>
                                     <div class="mb-3">
                                         <label for="" class="form-label">Username *</label>
-                                        <input type="text" class="form-control" name="username" />
+                                        <input type="text" class="form-control" name="username" value="{{ old('username') }}"/>
                                     </div>
                                     <div class="mb-3">
                                         <label for="" class="form-label">Email Address *</label>
-                                        <input type="text" class="form-control" name="email" />
+                                        <input type="text" class="form-control" name="email" value="{{ old('email') }}"/>
                                     </div>
                                     <div class="mb-3">
                                         <label for="" class="form-label">Password *</label>

@@ -30,6 +30,7 @@ use App\Http\Controllers\Front\PostController;
 use App\Http\Controllers\Front\FaqController;
 use App\Http\Controllers\Front\ContactController;
 use App\Http\Controllers\Front\PricingController;
+use App\Http\Controllers\Company\CompanyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,9 +55,26 @@ Route::get('/pricing', [PricingController::class, 'index'])->name('pricing');
 Route::post('/contact-submit', [ContactController::class, 'submit'])->name('contact_submit');
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::get('/create-account', [SignupController::class, 'index'])->name('signup');
+
+
+/* Company */
+Route::post('/company_login_submit', [LoginController::class, 'company_login_submit'])->name('company_login_submit');
 Route::post('/company_signup_submit', [SignupController::class, 'company_signup_submit'])->name('company_signup_submit');
-Route::get('/company_signup_verify/{token}/{email}', [SignupController::class, 'company_signup_verify'])->name('company_signup_verify');
-Route::get('/forget-password', [ForgetPasswordController::class, 'index'])->name('forget_password');
+Route::get('/company_signup_verify/{token}/{email}', [SignupController::class, 
+'company_signup_verify'])->name('company_signup_verify');
+Route::get('/forget-password/company', [ForgetPasswordController::class, 
+'company_forget_password'])->name('company_forget_password');
+Route::post('/forget-password/company/submit', [ForgetPasswordController::class, 
+'company_forget_password_submit'])->name('company_forget_password_submit');
+Route::get('reset-password/company/{token}/{email}', [ForgetPasswordController::class, 
+'reset_password_company'])->name('reset_password_company');
+Route::post('reset-password/company/submit', [ForgetPasswordController::class, 
+'reset_password_company_submit'])->name('reset_password_company_submit');
+
+Route::middleware('company:company')->group(function() {
+    Route::get('/company/dashboard', [CompanyController::class, 'dashboard'])->name('company_dashboard');
+    Route::get('/company/logout', [LoginController::class, 'logout'])->name('company_logout');
+});
 
 /* Admin */
 
