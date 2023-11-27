@@ -16,4 +16,8 @@ class CompanyController extends Controller
         Auth::guard('company')->logout();
         return redirect()->route('login');
     }
+
+    public function company_make_payment() {
+        return view('company.make_payment');
+    }
 }
