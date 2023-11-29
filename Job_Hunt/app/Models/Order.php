@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
+
+    public function rCompany() {
+        return $this->belongsTo(Company::class, 'company_id');
+    }
+
+    public function rPackage() {
+        return $this->belongsTo(Package::class, 'package_id');
+    }
 }

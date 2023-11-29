@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->integer('company_id');
-            $table->integer('pakage_id');
+            $table->integer('package_id');
             $table->string('order_no');
             $table->string('paid_amount');
             $table->string('payment_method');

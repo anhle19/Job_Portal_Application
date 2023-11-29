@@ -1,17 +1,36 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\AdminHomeController;
-use App\Http\Controllers\Admin\AdminLoginController;
-use App\Http\Controllers\Admin\AdminProfileController;
+
+//Front
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\TermsController;
 use App\Http\Controllers\Front\LoginController;
 use App\Http\Controllers\Front\SignupController;
 use App\Http\Controllers\Front\ForgetPasswordController;
 use App\Http\Controllers\Front\PrivacyController;
-use App\Http\Controllers\Admin\AdminHomePageController;
+use App\Http\Controllers\Front\JobCategoryController;
+use App\Http\Controllers\Front\PostController;
+use App\Http\Controllers\Front\FaqController;
+use App\Http\Controllers\Front\ContactController;
+use App\Http\Controllers\Front\PricingController;
+
+use App\Http\Controllers\Company\CompanyController;
+use App\Http\Controllers\Candidate\CandidateController;
+
+//Admin
+use App\Http\Controllers\Admin\AdminHomeController;
+use App\Http\Controllers\Admin\AdminLoginController;
+use App\Http\Controllers\Admin\AdminProfileController;
+use App\Http\Controllers\Admin\AdminJobCategoryController;
+use App\Http\Controllers\Admin\AdminWhyChooseController;
+use App\Http\Controllers\Admin\AdminTestimonialController;
+use App\Http\Controllers\Admin\AdminPostController;
+use App\Http\Controllers\Admin\AdminFaqController;
+use App\Http\Controllers\Admin\AdminPackageController;
+
 use App\Http\Controllers\Admin\AdminJobCategoryPageController;
+use App\Http\Controllers\Admin\AdminHomePageController;
 use App\Http\Controllers\Admin\AdminFaqPageController;
 use App\Http\Controllers\Admin\AdminContactPageController;
 use App\Http\Controllers\Admin\AdminBlogPageController;
@@ -19,19 +38,7 @@ use App\Http\Controllers\Admin\AdminTermPageController;
 use App\Http\Controllers\Admin\AdminOtherPageController;
 use App\Http\Controllers\Admin\AdminPricingPageController;
 use App\Http\Controllers\Admin\AdminPrivacyPageController;
-use App\Http\Controllers\Admin\AdminJobCategoryController;
-use App\Http\Controllers\Admin\AdminWhyChooseController;
-use App\Http\Controllers\Admin\AdminTestimonialController;
-use App\Http\Controllers\Admin\AdminPostController;
-use App\Http\Controllers\Admin\AdminFaqController;
-use App\Http\Controllers\Admin\AdminPackageController;
-use App\Http\Controllers\Front\JobCategoryController;
-use App\Http\Controllers\Front\PostController;
-use App\Http\Controllers\Front\FaqController;
-use App\Http\Controllers\Front\ContactController;
-use App\Http\Controllers\Front\PricingController;
-use App\Http\Controllers\Company\CompanyController;
-use App\Http\Controllers\Candidate\CandidateController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -61,39 +68,68 @@ Route::get('/create-account', [SignupController::class, 'index'])->name('signup'
 /* Company */
 Route::post('/company_login_submit', [LoginController::class, 'company_login_submit'])->name('company_login_submit');
 Route::post('/company_signup_submit', [SignupController::class, 'company_signup_submit'])->name('company_signup_submit');
-Route::get('/company_signup_verify/{token}/{email}', [SignupController::class, 
-'company_signup_verify'])->name('company_signup_verify');
-Route::get('/forget-password/company', [ForgetPasswordController::class, 
-'company_forget_password'])->name('company_forget_password');
-Route::post('/forget-password/company/submit', [ForgetPasswordController::class, 
-'company_forget_password_submit'])->name('company_forget_password_submit');
-Route::get('reset-password/company/{token}/{email}', [ForgetPasswordController::class, 
-'reset_password_company'])->name('reset_password_company');
-Route::post('reset-password/company/submit', [ForgetPasswordController::class, 
-'reset_password_company_submit'])->name('reset_password_company_submit');
+Route::get('/company_signup_verify/{token}/{email}', [
+    SignupController::class,
+    'company_signup_verify'
+])->name('company_signup_verify');
+Route::get('/forget-password/company', [
+    ForgetPasswordController::class,
+    'company_forget_password'
+])->name('company_forget_password');
+Route::post('/forget-password/company/submit', [
+    ForgetPasswordController::class,
+    'company_forget_password_submit'
+])->name('company_forget_password_submit');
+Route::get('reset-password/company/{token}/{email}', [
+    ForgetPasswordController::class,
+    'reset_password_company'
+])->name('reset_password_company');
+Route::post('reset-password/company/submit', [
+    ForgetPasswordController::class,
+    'reset_password_company_submit'
+])->name('reset_password_company_submit');
 
-Route::middleware('company:company')->group(function() {
+Route::middleware('company:company')->group(function () {
     Route::get('/company/dashboard', [CompanyController::class, 'dashboard'])->name('company_dashboard');
-    Route::get('/company/make-payment', [CompanyController::class, 'company_make_payment'])->name('company_make_payment');
+    Route::get('/company/orders', [CompanyController::class, 'orders'])->name('company_orders');
+    Route::get('/company/make-payment', [CompanyController::class, 'make_payment'])->name('company_make_payment');
     Route::get('/company/logout', [CompanyController::class, 'logout'])->name('company_logout');
+    //Paypal
+    Route::post('/company/paypal/payment', [CompanyController::class, 'paypal'])->name('company_paypal');
+    Route::get('/company/paypal/success', [CompanyController::class, 'paypal_success'])->name('company_paypal_success');
+    Route::get('/company/paypal/cancel', [CompanyController::class, 'paypal_cancel'])->name('company_paypal_cancel');
 
+    //Stripe
+    Route::post('/company/stripe/payment', [CompanyController::class, 'stripe'])->name('company_stripe');
+    Route::get('/company/stripe/success', [CompanyController::class, 'stripe_success'])->name('company_stripe_success');
+    Route::get('/company/stripe/cancel', [CompanyController::class, 'stripe_cancel'])->name('company_stripe_cancel');
 });
 
 /* Candidate */
 Route::post('/candidate_signup_submit', [SignupController::class, 'candidate_signup_submit'])->name('candidate_signup_submit');
-Route::get('/candidate_signup_verify/{token}/{email}', [SignupController::class, 
-'candidate_signup_verify'])->name('candidate_signup_verify');
+Route::get('/candidate_signup_verify/{token}/{email}', [
+    SignupController::class,
+    'candidate_signup_verify'
+])->name('candidate_signup_verify');
 Route::post('/candidate_login_submit', [LoginController::class, 'candidate_login_submit'])->name('candidate_login_submit');
-Route::get('/forget-password/candidate', [ForgetPasswordController::class, 
-'candidate_forget_password'])->name('candidate_forget_password');
-Route::post('/forget-password/candidate/submit', [ForgetPasswordController::class, 
-'candidate_forget_password_submit'])->name('candidate_forget_password_submit');
-Route::get('reset-password/candidate/{token}/{email}', [ForgetPasswordController::class, 
-'reset_password_candidate'])->name('reset_password_candidate');
-Route::post('reset-password/candidate/submit', [ForgetPasswordController::class, 
-'reset_password_candidate_submit'])->name('reset_password_candidate_submit');
+Route::get('/forget-password/candidate', [
+    ForgetPasswordController::class,
+    'candidate_forget_password'
+])->name('candidate_forget_password');
+Route::post('/forget-password/candidate/submit', [
+    ForgetPasswordController::class,
+    'candidate_forget_password_submit'
+])->name('candidate_forget_password_submit');
+Route::get('reset-password/candidate/{token}/{email}', [
+    ForgetPasswordController::class,
+    'reset_password_candidate'
+])->name('reset_password_candidate');
+Route::post('reset-password/candidate/submit', [
+    ForgetPasswordController::class,
+    'reset_password_candidate_submit'
+])->name('reset_password_candidate_submit');
 
-Route::middleware('candidate:candidate')->group(function() {
+Route::middleware('candidate:candidate')->group(function () {
     Route::get('/candidate/dashboard', [CandidateController::class, 'dashboard'])->name('candidate_dashboard');
     Route::get('/candidate/logout', [CandidateController::class, 'logout'])->name('candidate_logout');
 });

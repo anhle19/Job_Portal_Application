@@ -6,7 +6,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h2>Dashboard</h2>
+                    <h2>Make Payment</h2>
                 </div>
             </div>
         </div>
@@ -26,31 +26,53 @@
                     <div class="row box-items mb-4">
                         <div class="col-md-4">
                             <div class="box1">
-                                <h4>$19</h4>
-                                <p>Basic</p>
+                                @if ($current_plan == null)
+                                    <span class="text-danger">No plan is available</span>
+                                @else
+                                    <h4>${{ $current_plan->rPackage->package_price }}</h4>
+                                    <p>{{ $current_plan->rPackage->package_name }}</p>
+                                @endif
                             </div>
                         </div>
                     </div>
 
-                    <h4>Upgrade Plan (Make Payment)</h4>
+                    <h4>Choose Plan and Make Payment</h4>
                     <div class="table-responsive">
                         <table class="table table-bordered">
-                            <tr>
-                                <td>Pay with PayPal</td>
-                                <td>
-                                    <a href="" class="btn btn-primary"
-                                        >Pay with PayPal</a
-                                    >
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Pay with Stripe</td>
-                                <td>
-                                    <a href="" class="btn btn-primary"
-                                        >Pay with Card</a
-                                    >
-                                </td>
-                            </tr>
+                            <form action="{{ route('company_paypal') }}" method="post">
+                                <tr>
+                                    @csrf
+                                    <td class="w-200">
+                                        <select name="package_id" class="form-control select2">
+                                            @foreach ($packages as $item)
+                                                <option value="{{ $item->id }}">{{ $item->package_name }}
+                                                    ({{ $item->package_price }}$)
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <button type="submit" class="btn btn-primary">Pay with PayPal</button>
+                                    </td>
+                                </tr>
+                            </form>
+                            <form action="{{ route('company_stripe') }}" method="post">
+                                @csrf
+                                <tr>
+                                    <td class="w-200">
+                                        <select name="package_id" class="form-control select2">
+                                            @foreach ($packages as $item)
+                                                <option value="{{ $item->id }}">{{ $item->package_name }}
+                                                    ({{ $item->package_price }}$)
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <button type="submit" class="btn btn-primary">Pay with Card</button>
+                                    </td>
+                                </tr>
+                            </form>
                         </table>
                     </div>
                 </div>
