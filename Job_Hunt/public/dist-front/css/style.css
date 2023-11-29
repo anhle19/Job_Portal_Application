@@ -1309,7 +1309,7 @@ select {
 .testimonial-carousel .owl-dots .owl-dot {
     width: 24px;
     height: 24px;
-    background: #46bc29;
+    background: #313131;
     border: 7px solid #fff;
     border-radius: 50%;
     display: inline-block;
@@ -1318,7 +1318,7 @@ select {
 .testimonial-carousel .owl-dots .owl-dot.active {
     width: 24px;
     height: 24px;
-    background: #313131;
+    background: #46bc29;
     border: 7px solid #fff;
 }
 .testimonial-carousel .owl-nav .owl-prev,
