@@ -3,16 +3,138 @@
 namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
+use App\Models\CompanyIndustry;
+use App\Models\CompanyLocation;
+use App\Models\CompanySize;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use App\Models\Order;
 use App\Models\Package;
+use Illuminate\Validation\Rule;
+use App\Models\CompanyPhoto;
 
 class CompanyController extends Controller
 {
     public function dashboard() {
         return view('company.dashboard');
+    }
+
+    public function photos() {
+        $company_id = Auth::guard('company')->user()->id;
+        //Check if company have order
+        $order_data = Order::where('company_id', $company_id)->where('currently_active', 1)->first();
+        if(!isset($order_data)) {
+            return redirect()->back()->with('error', 'You must to buy a package first to access this page');
+        }
+
+        //Check if company have package
+        $package_data = Package::where('id', $order_data->package_id)->first();
+        if($package_data->total_allowed_photos == 0) {
+            return redirect()->back()->with('error', 'Your current package doas not allow to access photo section');
+        }
+
+        $photos = CompanyPhoto::where('company_id', Auth::guard('company')->user()->id)->get();
+        return view('company.photos',compact('photos'));
+    }
+
+    public function photos_submit(Request $request) {
+        $company_id = Auth::guard('company')->user()->id;
+        $order_data = Order::where('company_id', $company_id)->where('currently_active', 1)->first();
+        $package_data = Package::where('id', $order_data->package_id)->first();
+        $total_company_photos = CompanyPhoto::where('company_id', $company_id)->count();
+
+        //Check the current package
+        if($total_company_photos == $package_data->total_allowed_photos) {
+            return redirect()->back()->with('error', 'Maximum number of allowed photos are uploaded!');
+        }
+
+        $request->validate([
+            'photo' => 'required|image|mimes:png,jpg,jpeg,gif'
+        ]);
+        $obj = new CompanyPhoto();
+
+        $ext = $request->file('photo')->extension();
+        $final_name = 'company_photo_'.time().'.'.$ext;
+        $request->file('photo')->move(public_path('uploads/'),$final_name);
+
+        
+        $obj->company_id = $company_id;
+        $obj->photo = $final_name;
+        $obj->save();
+
+        return redirect()->back()->with('success', 'Data is saved successful!');
+    }
+
+    public function photos_delete($id) {
+        $photo_single = CompanyPhoto::where('id', $id)->first();
+        unlink(public_path('uploads/'.$photo_single->photo));
+        $photo_single->delete();
+        return redirect()->back()->with('success', 'Data is deleted successfully!');
+    }
+
+    public function edit_profile() {
+        $company_data = Company::where('id', Auth::guard('company')->user()->id)->first();
+        $company_locations = CompanyLocation::get();
+        $company_sizes = CompanySize::get();
+        $company_industries = CompanyIndustry::get();
+        return view('company.edit_profile', compact('company_data', 'company_locations', 'company_sizes', 'company_industries'));
+    }
+
+    public function edit_profile_update(Request $request) {
+
+        $obj = Company::where('id', Auth::guard('company')->user()->id)->first();
+        $request->validate([
+            'company_name' => 'required',
+            'person_name' => 'required',
+            'username' => ['required',Rule::unique('companies')->ignore(Auth::guard('company')->user()->id)],
+            'email' => ['required',Rule::unique('companies')->ignore(Auth::guard('company')->user()->id)]
+        ]);
+
+        if ($request->hasFile('logo')) {
+            $request->validate([
+                'logo' => 'image|mimes:png,jpg,jpeg,gif'
+            ]);
+
+            if (Auth::guard('company')->user()->logo != null) {
+                unlink(public_path('uploads/'.$obj->logo));
+            }
+
+            $ext = $request->file('logo')->extension();
+            $final_name = 'company_logo_'.time().'.'.$ext;
+            $request->file('logo')->move(public_path('uploads/'),$final_name);
+            $obj->logo = $final_name;
+        }
+
+        $obj->company_name = $request->company_name;
+        $obj->person_name = $request->person_name;
+        $obj->username = $request->username;
+        $obj->email = $request->email;
+        $obj->phone = $request->phone;
+        $obj->address = $request->address;
+        $obj->company_location_id = $request->company_location_id;
+        $obj->company_industry_id = $request->company_industry_id;
+        $obj->website = $request->website;
+        $obj->company_size_id = $request->company_size_id;
+        $obj->description = $request->description;
+        $obj->founded_on = $request->founded_on;
+        $obj->oh_mon = $request->oh_mon;
+        $obj->oh_tue = $request->oh_tue;
+        $obj->oh_wed = $request->oh_wed;
+        $obj->oh_thu = $request->oh_thu;
+        $obj->oh_fri = $request->oh_fri;
+        $obj->oh_sat = $request->oh_sat;
+        $obj->oh_sun = $request->oh_sun;
+        $obj->map_code = $request->map_code;
+        $obj->facebook = $request->facebook;
+        $obj->twitter = $request->twitter;
+        $obj->linkedin = $request->linkedin;
+        $obj->instagram = $request->instagram;
+
+        $obj->update();
+
+        return redirect()->back()->with('success', 'Data is updated successful!');
     }
 
     public function orders() {
