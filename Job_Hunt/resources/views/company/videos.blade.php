@@ -6,7 +6,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h2>Photos</h2>
+                    <h2>Videos</h2>
                 </div>
             </div>
         </div>
@@ -22,13 +22,13 @@
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-12">
-                    <h4>Add Photo</h4>
-                    <form action="{{ route('company_photos_submit') }}" method="post" enctype="multipart/form-data">
+                    <h4>Add Video</h4>
+                    <form action="{{ route('company_videos_submit') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
-                            <div class="col-md-12 mb-3">
+                            <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                    <input type="file" name="photo" />
+                                    <input type="text" name="video_id" class="form-control" placeholder="Video Code" />
                                 </div>
                             </div>
                         </div>
@@ -40,32 +40,31 @@
                         </div>
                     </form>
 
-                    <h4 class="mt-4">Existing Photos</h4>
-                    <div class="photo-all">
-                        @if ($photos->count() == 0)
-                        <div class="row">
-                            <div class="col-md-12 text-danger">
-                                No Photo Found
+                    <h4 class="mt-4">Existing Videos</h4>
+                    <div class="video-all">
+                        @if ($videos->count() == 0)
+                            <div class="row">
+                                <div class="col-md-12 text-danger">
+                                    No Video Found
+                                </div>
                             </div>
-                        </div>
                         @else
                         <div class="row">
-                            @foreach ($photos as $item)
+                            @foreach ($videos as $item)
                             <div class="col-md-6 col-lg-3">
                                 <div class="item">
-                                    <a href="{{ asset('uploads/'.$item->photo) }}" class="magnific">
-                                        <img src="{{ asset('uploads/'.$item->photo) }}" alt="" />
+                                    <a class="video-button" href="http://www.youtube.com/watch?v={{ $item->video_id }}">
+                                        <img src="http://img.youtube.com/vi/{{ $item->video_id }}/0.jpg" alt="" />
                                         <div class="icon">
-                                            <i class="fas fa-plus"></i>
+                                            <i class="far fa-play-circle"></i>
                                         </div>
                                         <div class="bg"></div>
                                     </a>
                                 </div>
-                                <a href="{{ route('company_photos_delete', $item->id) }}" class="btn btn-danger btn-sm mb-4"
+                                <a href="{{ route('company_videos_delete', $item->id) }}" class="btn btn-danger btn-sm mb-4"
                                     onclick="return confirm('Are you sure?'); ">Delete</a>
-                            </div> 
+                            </div>
                             @endforeach
-                            
                         </div>
                         @endif
                         

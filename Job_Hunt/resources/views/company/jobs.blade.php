@@ -6,7 +6,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h2>Dashboard</h2>
+                    <h2>All Jobs</h2>
                 </div>
             </div>
         </div>
@@ -16,29 +16,12 @@
             <div class="row">
                 <div class="col-lg-3 col-md-12">
                     <div class="card">
-                        @include('company.sidebar')
+                        <ul class="list-group list-group-flush">
+                            @include('company.sidebar')
+                        </ul>
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-12">
-                    <h3>Hello, {{ Auth::guard('company')->user()->person_name }} </h3>
-                    <p>See all the statistics at a glance:</p>
-
-                    <div class="row box-items">
-                        <div class="col-md-4">
-                            <div class="box1">
-                                <h4>{{ $total_opened_jobs }}</h4>
-                                <p>Open Jobs</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="box3">
-                                <h4>{{ $total_featured_jobs }}</h4>
-                                <p>Featured Jobs</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <h3 class="mt-5">Recent Jobs</h3>
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <tbody>

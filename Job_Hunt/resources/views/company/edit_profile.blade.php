@@ -29,7 +29,7 @@
                                 <label for="">Existing Logo</label>
                                 @if ($company_data->logo == null)
                                 <div class="form-group">
-                                    <img src="{{ asset('uploads/default-logo.png') }}" alt="" class="logo" />
+                                    <img src="{{ asset('uploads/default_company_logo.png') }}" alt="" class="logo" />
                                 </div>
                                 @else
                                 <div class="form-group">

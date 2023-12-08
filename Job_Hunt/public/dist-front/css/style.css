@@ -1869,3 +1869,7 @@ ul.pagination .page-link {
 ul.pagination .active>.page-link {
     color: #fff;
 }
+
+.datepicker-dropdown {
+    z-index: 99999!important;
+ }
