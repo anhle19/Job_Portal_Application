@@ -17,22 +17,22 @@
                             </p>
                         </div>
                         <div class="search-section">
-                            <form action="jobs.html" method="post">
+                            <form action="{{ url('job-listing') }}" method="get">
                                 <div class="inner">
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="form-group">
-                                                <input type="text" name="" class="form-control"
+                                                <input type="text" name="title" class="form-control"
                                                     placeholder="{{ $home_page_data->job_title }}" />
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="form-group">
-                                                <select name="" class="form-select select2">
+                                                <select name="location" class="form-select select2">
                                                     <option value="">
                                                         {{ $home_page_data->job_location }}
                                                     </option>
-                                                    @foreach ($job_location_data as $item)
+                                                    @foreach ($all_job_location as $item)
                                                     <option value="{{ $item->id }}">
                                                         {{ $item->name }}
                                                     </option>
@@ -42,11 +42,11 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="form-group">
-                                                <select name="" class="form-select select2">
+                                                <select name="category" class="form-select select2">
                                                     <option value="">
                                                         {{ $home_page_data->job_category }}
                                                     </option>
-                                                    @foreach ($job_category_data as $item)
+                                                    @foreach ($all_job_category as $item)
                                                     <option value="{{ $item->id }}">
                                                         {{ $item->name }}
                                                     </option>
@@ -55,6 +55,10 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
+                                            <input type="hidden" name="type">
+                                            <input type="hidden" name="experience">
+                                            <input type="hidden" name="job_gender">
+                                            <input type="hidden" name="job_salary_range">
                                             <button type="submit" class="btn btn-primary">
                                                 <i class="fas fa-search"></i>
                                                 {{ $home_page_data->search }}

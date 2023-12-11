@@ -14,6 +14,7 @@ use App\Http\Controllers\Front\PostController;
 use App\Http\Controllers\Front\FaqController;
 use App\Http\Controllers\Front\ContactController;
 use App\Http\Controllers\Front\PricingController;
+use App\Http\Controllers\Front\JobListingController;
 
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\Candidate\CandidateController;
@@ -71,6 +72,8 @@ Route::get('/pricing', [PricingController::class, 'index'])->name('pricing');
 Route::post('/contact-submit', [ContactController::class, 'submit'])->name('contact_submit');
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::get('/create-account', [SignupController::class, 'index'])->name('signup');
+Route::get('/job-listing', [JobListingController::class, 'index'])->name('job_listing');
+Route::get('/job/{id}', [JobListingController::class, 'job'])->name('job');
 
 
 /* Company */
@@ -195,6 +198,13 @@ Route::middleware('candidate:candidate')->group(function () {
     Route::get('/candidate/award/edit/{id}', [CandidateController::class, 'award_edit'])->name('candidate_award_edit');
     Route::post('/candidate/award/update/{id}', [CandidateController::class, 'award_update'])->name('candidate_award_update');
     Route::get('/candidate/award/delete/{id}', [CandidateController::class, 'award_delete'])->name('candidate_award_delete');
+
+    Route::get('/candidate/resume/view', [CandidateController::class, 'resume'])->name('candidate_resume');
+    Route::get('/candidate/resume/create', [CandidateController::class, 'resume_create'])->name('candidate_resume_create');
+    Route::post('/candidate/resume/store', [CandidateController::class, 'resume_store'])->name('candidate_resume_store');
+    Route::get('/candidate/resume/edit/{id}', [CandidateController::class, 'resume_edit'])->name('candidate_resume_edit');
+    Route::post('/candidate/resume/update/{id}', [CandidateController::class, 'resume_update'])->name('candidate_resume_update');
+    Route::get('/candidate/resume/delete/{id}', [CandidateController::class, 'resume_delete'])->name('candidate_resume_delete');
 
 });
 

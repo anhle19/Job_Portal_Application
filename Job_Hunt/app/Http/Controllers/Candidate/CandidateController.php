@@ -7,6 +7,7 @@ use App\Models\Candidate;
 use App\Models\CandidateAward;
 use App\Models\CandidateEducation;
 use App\Models\CandidateExperience;
+use App\Models\CandidateResume;
 use App\Models\CandidateSkill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -145,7 +146,7 @@ class CandidateController extends Controller
 
     public function education_delete($id) {
         CandidateEducation::where('id', $id)->delete();
-        return redirect()->route('candidate_education')->with('success', 'Data is deleted successful!');
+        return redirect()->back()->with('success', 'Data is deleted successful!');
     }
 
     //skill
@@ -195,7 +196,7 @@ class CandidateController extends Controller
 
     public function skill_delete($id) {
         CandidateSkill::where('id', $id)->delete();
-        return redirect()->route('candidate_skill')->with('success', 'Data is deleted successful!');
+        return redirect()->back()->with('success', 'Data is deleted successful!');
     }
 
     //Experience
@@ -253,7 +254,7 @@ class CandidateController extends Controller
 
     public function experience_delete($id) {
         CandidateExperience::where('id', $id)->delete();
-        return redirect()->route('candidate_experience')->with('success', 'Data is deleted successful!');
+        return redirect()->back()->with('success', 'Data is deleted successful!');
     }
     
     //Award
@@ -307,6 +308,70 @@ class CandidateController extends Controller
 
     public function award_delete($id) {
         CandidateAward::where('id', $id)->delete();
-        return redirect()->route('candidate_award')->with('success', 'Data is deleted successful!');
+        return redirect()->back()->with('success', 'Data is deleted successful!');
+    }
+
+    public function resume() {
+        $resumes = CandidateResume::where('candidate_id', Auth::guard('candidate')->user()->id)->get();
+        return view('candidate.resume', compact('resumes'));
+    }
+
+    public function resume_create() {
+        return view('candidate.resume_create');
+    }
+
+    public function resume_store(Request $request) {
+
+        $request->validate([
+            'name' => ' required',
+            'file' => ' required|mimes:pdf,doc,docx',
+        ]);
+
+        $obj = new CandidateResume();
+        $ext = $request->file('file')->extension();
+        $final_name = 'resume_'.time().'.'.$ext;
+        $request->file('file')->move(public_path('uploads/'), $final_name);
+        $obj->candidate_id = Auth::guard('candidate')->user()->id;
+        $obj->file = $final_name;
+        $obj->name = $request->name;
+        $obj->save();
+
+        return redirect()->back()->with('success', 'Data is saved successful!');
+    }
+
+    public function resume_edit($id) {
+        $resume_single = CandidateResume::where('id', $id)->first();
+        return view('candidate.resume_edit', compact('resume_single'));
+    }
+
+    public function resume_update($id, Request $request) {
+        $resume_single = CandidateResume::where('id', $id)->first();
+
+        $request->validate([
+            'name' => ' required',
+        ]);
+
+        if($request->hasFile('file')) {
+            $request->validate([
+                'file' => ' required|mimes:pdf,doc,docx'
+            ]);
+
+            unlink(public_path('uploads/'.$resume_single->file));
+            
+            $ext = $request->file('file')->extension();
+            $final_name = 'resume_'.time().'.'.$ext;
+            $request->file('file')->move(public_path('uploads/'), $final_name);
+            $resume_single->file = $final_name;
+        }
+
+        $resume_single->name = $request->name;
+        $resume_single->update();
+        
+        return redirect()->route('candidate_resume')->with('success', 'Data is updated successful!');
+    }
+
+    public function resume_delete($id) {
+        CandidateResume::where('id', $id)->delete();
+        return redirect()->back()->with('success', 'Data is deleted successful!');
     }
 }

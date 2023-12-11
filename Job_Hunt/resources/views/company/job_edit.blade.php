@@ -60,8 +60,8 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="" class="form-label">Benifits</label>
-                                <textarea name="benifit" class="form-control editor" cols="30" rows="10">
-                                    {{ $job_single->benifit }}
+                                <textarea name="benefit" class="form-control editor" cols="30" rows="10">
+                                    {{ $job_single->benefit }}
                                 </textarea>
                             </div>
                         </div>
