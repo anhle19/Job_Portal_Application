@@ -34,8 +34,8 @@ class SignupController extends Controller
         $request->validate([
             'company_name' => 'required',
             'person_name' => 'required',
-            'username' => 'required|unique:companies',
-            'email' => 'required|email|unique:companies',
+            'company_username' => 'required|unique:companies',
+            'company_email' => 'required|email|unique:companies',
             'password' => 'required',
             'retype_password' => 'required|same:password',
         ]);
@@ -46,15 +46,15 @@ class SignupController extends Controller
         $obj = new Company();
         $obj->company_name = $request->company_name;
         $obj->person_name = $request->person_name;
-        $obj->username = $request->username;
-        $obj->email = $request->email;
+        $obj->username = $request->company_username;
+        $obj->email = $request->company_email;
         $obj->password = Hash::make($request->password);
         $obj->status = 0;
         $obj->token = $token;
         $obj->save();
 
         //Email validation
-        $verify_link = url('company_signup_verify/'.$token.'/'.$request->email);
+        $verify_link = url('company_signup_verify/'.$token.'/'.$request->company_email);
         $subject = 'Company Signup Verification';
         $message = 'Please click the following link: <br>';
         $message .= '<a href="'.$verify_link.'">Click here</a>';

@@ -11,7 +11,7 @@ class JobCategoryController extends Controller
 {
     //
     public function categories() {
-        $job_categories_data = JobCategory::orderBy('name', 'ASC')->get();
+        $job_categories_data = JobCategory::withCount('rJob')->orderBy('r_job_count', 'desc')->get();
         $job_category_page_data = PageJobCategoryItem::where('id', 1)->first();
         return view('front.job_categories', compact('job_categories_data', 'job_category_page_data'));
     }

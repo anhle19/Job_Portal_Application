@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Websitemail;
 use App\Models\Job;
 use App\Models\JobCategory;
 use App\Models\JobExperience;
@@ -11,6 +12,7 @@ use App\Models\JobLocation;
 use App\Models\JobSalaryRange;
 use App\Models\JobType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class JobListingController extends Controller
 {
@@ -82,7 +84,34 @@ class JobListingController extends Controller
     public function job($id) {
         $job_single = Job::with('rCompany', 'rJobCategory', 'rJobLocation', 'rJobType', 
         'rJobExperience', 'rJobGender', 'rJobSalaryRange')->where('id', $id)->first();
+        $jobs = Job::with('rCompany', 'rJobCategory', 'rJobLocation', 'rJobType', 
+        'rJobExperience', 'rJobGender', 'rJobSalaryRange')->where('job_category_id', $job_single->job_category_id)->take(2)->get();
 
-        return view('front.job', compact('job_single'));
+        return view('front.job', compact('job_single','jobs'));
+    }
+
+    public function send_email(Request $request) {
+        $request->validate([
+            'visitor_name' => 'required',
+            'visitor_email' => 'required|email',
+            'visitor_phone' => 'required',
+            'visitor_message' => 'required'
+        ]);
+
+        $subject = 'Enquery for job: '.$request->job_title;
+        $message = 'Visitor Information: <br>';
+        $message .= 'Name: '.$request->visitor_name.'<br>';
+        $message .= 'Email: '.$request->visitor_email.'<br>';
+        $message .= 'Phone: '.$request->visitor_phone.'<br>';
+        $message .= 'Message: '.$request->visitor_message;
+
+        $data = array(
+            'subject' => $subject,
+            'message' => $message,
+        );
+
+        Mail::to($request->receive_email)->send(new Websitemail($data));
+
+        return redirect()->back()->with('success', 'Email is sent successfully!');
     }
 }

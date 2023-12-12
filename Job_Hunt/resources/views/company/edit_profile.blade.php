@@ -81,7 +81,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="">Country </label>
+                                <label for="">Location </label>
                                 <div class="form-group">
                                     <select name="company_location_id" class="form-control select2">
                                         @foreach ($company_locations as $item)

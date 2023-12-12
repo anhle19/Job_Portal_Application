@@ -84,11 +84,11 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="" class="form-label">Username *</label>
-                                        <input type="text" class="form-control" name="username" value="{{ old('username') }}"/>
+                                        <input type="text" class="form-control" name="company_username" value="{{ old('company_username') }}"/>
                                     </div>
                                     <div class="mb-3">
                                         <label for="" class="form-label">Email Address *</label>
-                                        <input type="text" class="form-control" name="email" value="{{ old('email') }}"/>
+                                        <input type="text" class="form-control" name="company_email" value="{{ old('company_email') }}"/>
                                     </div>
                                     <div class="mb-3">
                                         <label for="" class="form-label">Password *</label>

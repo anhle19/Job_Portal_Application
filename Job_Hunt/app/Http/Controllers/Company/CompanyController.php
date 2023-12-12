@@ -162,7 +162,7 @@ class CompanyController extends Controller
     public function edit_profile()
     {
         $company_data = Company::where('id', Auth::guard('company')->user()->id)->first();
-        $company_locations = CompanyLocation::get();
+        $company_locations = CompanyLocation::all();
         $company_sizes = CompanySize::get();
         $company_industries = CompanyIndustry::get();
         return view('company.edit_profile', compact('company_data', 'company_locations', 'company_sizes', 'company_industries'));

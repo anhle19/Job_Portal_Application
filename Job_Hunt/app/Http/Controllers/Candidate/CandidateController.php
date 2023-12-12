@@ -60,7 +60,7 @@ class CandidateController extends Controller
         $obj->designation = $request->designation;
         $obj->biography = $request->biography;
         $obj->phone = $request->phone;
-        $obj->coutry = $request->country;
+        $obj->country = $request->country;
         $obj->address = $request->address;
         $obj->state = $request->state;
         $obj->city = $request->city;

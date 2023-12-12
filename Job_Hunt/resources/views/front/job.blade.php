@@ -8,7 +8,7 @@
                 <div class="col-md-12 job job-single">
                     <div class="item d-flex justify-content-start">
                         <div class="logo">
-                            <img src="{{ asset('uploads/'.$job_single->rCompany->logo) }}" alt="" />
+                            <img src="{{ asset('uploads/' . $job_single->rCompany->logo) }}" alt="" />
                         </div>
                         <div class="text">
                             <h3>{{ $job_single->title }}, {{ $job_single->rCompany->company_name }}</h3>
@@ -20,21 +20,23 @@
                                 <div class="date">{{ $job_single->created_at->diffForHumans() }}</div>
                                 <div class="budget">{{ $job_single->rJobSalaryRange->name }}</div>
                                 @if (date('Y-m-d') > $job_single->deadline)
-                                <div class="expired">Expired</div>
+                                    <div class="expired">Expired</div>
                                 @endif
                             </div>
                             <div class="special d-flex justify-content-start">
                                 @if ($job_single->is_featured == 1)
-                                <div class="featured">Featured</div>
+                                    <div class="featured">Featured</div>
                                 @endif
                                 <div class="type">{{ $job_single->rJobType->name }}</div>
                                 @if ($job_single->is_urgent == 1)
-                                <div class="urgent">Urgent</div>
+                                    <div class="urgent">Urgent</div>
                                 @endif
                             </div>
                             <div class="apply">
-                                <a href="apply.html" class="btn btn-primary">Apply Now</a>
-                                <a href="apply.html" class="btn btn-primary save-job">Bookmark</a>
+                                @if (date('Y-m-d') < $job_single->deadline)
+                                    <a href="apply.html" class="btn btn-primary">Apply Now</a>
+                                    <a href="apply.html" class="btn btn-primary save-job">Bookmark</a>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -99,93 +101,73 @@
                         <div class="job related-job pt-0 pb-0">
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="item d-flex justify-content-start">
-                                            <div class="logo">
-                                                <img src="uploads/logo1.png" alt="" />
-                                            </div>
-                                            <div class="text">
-                                                <h3>
-                                                    <a href="job.html">Software Engineer,
-                                                        Google</a>
-                                                </h3>
-                                                <div class="detail-1 d-flex justify-content-start">
-                                                    <div class="category">
-                                                        Web Development
-                                                    </div>
-                                                    <div class="location">
-                                                        United States
-                                                    </div>
+                                    @php
+                                        $i=0
+                                    @endphp
+                                    @foreach ($jobs as $item)
+                                    @if ($job_single->id == $item->id)
+                                        @continue
+                                    @endif
+                                    @php
+                                        $i++
+                                    @endphp
+                                        <div class="col-md-12">
+                                            <div class="item d-flex justify-content-start">
+                                                <div class="logo">
+                                                    <img src="{{ asset('uploads/' . $item->rCompany->logo) }}"
+                                                        alt="" />
                                                 </div>
-                                                <div class="detail-2 d-flex justify-content-start">
-                                                    <div class="date">
-                                                        3 days ago
+                                                <div class="text">
+                                                    <h3>
+                                                        <a href="{{ route('job', $item->id) }}">{{ $item->title }},
+                                                            {{ $item->rCompany->company_name }}</a>
+                                                    </h3>
+                                                    <div class="detail-1 d-flex justify-content-start">
+                                                        <div class="category">
+                                                            {{ $item->rJobCategory->name }}
+                                                        </div>
+                                                        <div class="location">
+                                                            {{ $item->rJobLocation->name }}
+                                                        </div>
                                                     </div>
-                                                    <div class="budget">
-                                                        $3000-$3500
+                                                    <div class="detail-2 d-flex justify-content-start">
+                                                        <div class="date">
+                                                            {{ $item->created_at->diffForHumans() }}
+                                                        </div>
+                                                        <div class="budget">
+                                                            {{ $item->rJobSalaryRange->name }}
+                                                        </div>
+                                                        @if (date('Y-m-d') > $item->deadline)
+                                                            <div class="expired">
+                                                                Expired
+                                                            </div>
+                                                        @endif
                                                     </div>
-                                                    <div class="expired">
-                                                        Expired
+                                                    <div class="special d-flex justify-content-start">
+                                                        @if ($item->is_featured == 1)
+                                                            <div class="featured">
+                                                                Featured
+                                                            </div>
+                                                        @endif
+                                                        <div class="type">
+                                                            {{ $item->rJobType->name }}
+                                                        </div>
+                                                        @if ($item->is_urgent == 1)
+                                                            <div class="urgent">
+                                                                Urgent
+                                                            </div>
+                                                        @endif
                                                     </div>
-                                                </div>
-                                                <div class="special d-flex justify-content-start">
-                                                    <div class="featured">
-                                                        Featured
+                                                    <div class="bookmark">
+                                                        <a href=""><i class="fas fa-bookmark active"></i></a>
                                                     </div>
-                                                    <div class="type">
-                                                        Full Time
-                                                    </div>
-                                                    <div class="urgent">
-                                                        Urgent
-                                                    </div>
-                                                </div>
-                                                <div class="bookmark">
-                                                    <a href=""><i class="fas fa-bookmark active"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div class="item d-flex justify-content-start">
-                                            <div class="logo">
-                                                <img src="uploads/logo2.png" alt="" />
-                                            </div>
-                                            <div class="text">
-                                                <h3>
-                                                    <a href="job.html">Web Designer,
-                                                        Amplify</a>
-                                                </h3>
-                                                <div class="detail-1 d-flex justify-content-start">
-                                                    <div class="category">
-                                                        Web Design
-                                                    </div>
-                                                    <div class="location">
-                                                        Canada
-                                                    </div>
-                                                </div>
-                                                <div class="detail-2 d-flex justify-content-start">
-                                                    <div class="date">
-                                                        1 day ago
-                                                    </div>
-                                                    <div class="budget">
-                                                        $1000-$1500
-                                                    </div>
-                                                </div>
-                                                <div class="special d-flex justify-content-start">
-                                                    <div class="featured">
-                                                        Featured
-                                                    </div>
-                                                    <div class="type">
-                                                        Part Time
-                                                    </div>
-                                                </div>
-                                                <div class="bookmark">
-                                                    <a href=""><i class="fas fa-bookmark"></i></a>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    @endforeach
+                                    @if ($i==0)
+                                    <div class="text-danger">No Result Found</div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -257,18 +239,21 @@
                             Enquery Form
                         </h2>
                         <div class="enquery-form">
-                            <form action="" method="post">
+                            <form action="{{ route('job_enquery_send_email') }}" method="post">
+                                @csrf
+                                <input type="hidden" name="job_title" value="{{ $job_single->title }}">
+                                <input type="hidden" name="receive_email" value="{{ $job_single->rCompany->email }}">
                                 <div class="mb-3">
-                                    <input type="text" class="form-control" placeholder="Full Name" />
+                                    <input type="text" name="visitor_name" class="form-control" placeholder="Full Name" />
                                 </div>
                                 <div class="mb-3">
-                                    <input type="email" class="form-control" placeholder="Email Address" />
+                                    <input type="email" name="visitor_email" class="form-control" placeholder="Email Address" />
                                 </div>
                                 <div class="mb-3">
-                                    <input type="text" class="form-control" placeholder="Phone Number" />
+                                    <input type="text" name="visitor_phone" class="form-control" placeholder="Phone Number" />
                                 </div>
                                 <div class="mb-3">
-                                    <textarea class="form-control h-150" rows="3" placeholder="Message"></textarea>
+                                    <textarea class="form-control h-150" name="visitor_message" rows="3" placeholder="Message"></textarea>
                                 </div>
                                 <div class="mb-3">
                                     <button type="submit" class="btn btn-primary">
@@ -278,17 +263,17 @@
                             </form>
                         </div>
                     </div>
-                    <div class="right-item">
-                        <h2>
-                            <i class="fas fa-file-invoice"></i>
-                            Location Map
-                        </h2>
-                        @if ($job_single->map_code != null)
-                        <div class="location-map">
-                            {!! $job_single->map_code !!}
-                        </div> 
-                        @endif
-                    </div>
+                    @if ($job_single->map_code != null)
+                        <div class="right-item">
+                            <h2>
+                                <i class="fas fa-file-invoice"></i>
+                                Location Map
+                            </h2>
+                            <div class="location-map">
+                                {!! $job_single->map_code !!}
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

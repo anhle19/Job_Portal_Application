@@ -151,9 +151,7 @@
                         <div class="row">
                             <div class="col-md-12 mb-3">
                                 <label for="" class="form-label">Location Map</label>
-                                <textarea name="map_code" class="form-control h-150" cols="30" rows="10">
-                                    {{ $job_single->map_code }}
-                                </textarea>
+                                <textarea name="map_code" class="form-control h-150" cols="30" rows="10">{{ $job_single->map_code }}</textarea>
                             </div>
                         </div>
                         <div class="row">
