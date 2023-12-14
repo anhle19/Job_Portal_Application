@@ -81,12 +81,11 @@ class JobListingController extends Controller
         ));
     }
 
-    public function job($id) {
+    public function detail($id) {
         $job_single = Job::with('rCompany', 'rJobCategory', 'rJobLocation', 'rJobType', 
         'rJobExperience', 'rJobGender', 'rJobSalaryRange')->where('id', $id)->first();
         $jobs = Job::with('rCompany', 'rJobCategory', 'rJobLocation', 'rJobType', 
-        'rJobExperience', 'rJobGender', 'rJobSalaryRange')->where('job_category_id', $job_single->job_category_id)->take(2)->get();
-
+        'rJobExperience', 'rJobGender', 'rJobSalaryRange')->where('job_category_id', $job_single->job_category_id)->orderBy('id', 'desc')->take(3)->get();
         return view('front.job', compact('job_single','jobs'));
     }
 

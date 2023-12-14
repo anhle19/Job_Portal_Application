@@ -15,6 +15,7 @@ use App\Http\Controllers\Front\FaqController;
 use App\Http\Controllers\Front\ContactController;
 use App\Http\Controllers\Front\PricingController;
 use App\Http\Controllers\Front\JobListingController;
+use App\Http\Controllers\Front\CompanyListingController;
 
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\Candidate\CandidateController;
@@ -72,9 +73,14 @@ Route::get('/pricing', [PricingController::class, 'index'])->name('pricing');
 Route::post('/contact-submit', [ContactController::class, 'submit'])->name('contact_submit');
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::get('/create-account', [SignupController::class, 'index'])->name('signup');
+
 Route::get('/job-listing', [JobListingController::class, 'index'])->name('job_listing');
-Route::get('/job/{id}', [JobListingController::class, 'job'])->name('job');
-Route::post('/job/enquery/email', [JobListingController::class, 'send_email'])->name('job_enquery_send_email');
+Route::get('/job-detail/{id}', [JobListingController::class, 'detail'])->name('job');
+Route::post('/job-enquery/email', [JobListingController::class, 'send_email'])->name('job_enquery_send_email');
+
+Route::get('/company-listing', [CompanyListingController::class, 'index'])->name('company_listing');
+Route::get('/company-detail/{id}', [CompanyListingController::class, 'detail'])->name('company');
+Route::post('/company-contact/email', [CompanyListingController::class, 'send_email'])->name('company_contact_send_email');
 
 
 /* Company */
@@ -164,6 +170,7 @@ Route::post('reset-password/candidate/submit', [
 ])->name('reset_password_candidate_submit');
 
 Route::middleware('candidate:candidate')->group(function () {
+
     Route::get('/candidate/dashboard', [CandidateController::class, 'dashboard'])->name('candidate_dashboard');
     Route::get('/candidate/logout', [CandidateController::class, 'logout'])->name('candidate_logout');
     Route::get('/candidate/edit-password', [CandidateController::class, 'edit_password'])->name('candidate_edit_password');
@@ -207,6 +214,13 @@ Route::middleware('candidate:candidate')->group(function () {
     Route::post('/candidate/resume/update/{id}', [CandidateController::class, 'resume_update'])->name('candidate_resume_update');
     Route::get('/candidate/resume/delete/{id}', [CandidateController::class, 'resume_delete'])->name('candidate_resume_delete');
 
+    Route::get('/candidate/bookmark-add/{id}', [CandidateController::class, 'bookmark_add'])->name('candidate_bookmark_add');
+    Route::get('/candidate/bookmark-view', [CandidateController::class, 'bookmark_view'])->name('candidate_bookmark_view');
+    Route::get('/candidate/bookmark-delete/{id}', [CandidateController::class, 'bookmark_delete'])->name('candidate_bookmark_delete');
+
+    Route::get('/candidate/apply/{id}', [CandidateController::class, 'apply'])->name('candidate_apply');
+    Route::post('/candidate/apply-submit/{id}', [CandidateController::class, 'apply_submit'])->name('candidate_apply_submit');
+    Route::get('/candidate/applications', [CandidateController::class, 'applications'])->name('candidate_applications');
 });
 
 /* Admin */

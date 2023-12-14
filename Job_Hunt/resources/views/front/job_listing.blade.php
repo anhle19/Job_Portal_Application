@@ -115,64 +115,89 @@
                                 </div>
                                 @if ($jobs->count() == 0)
                                     <div class="text-danger">No Result Found</div>
-                                @else                              
-                                @foreach ($jobs as $item)
-                                    <div class="col-md-12">
-                                        <div class="item d-flex justify-content-start">
-                                            <div class="logo">
-                                                <img src="{{ asset('uploads/' . $item->rCompany->logo) }}" alt="" />
-                                            </div>
-                                            <div class="text">
-                                                <h3>
-                                                    <a href="{{ route('job', $item->id) }}">{{ $item->title }}, {{ $item->rCompany->company_name }}</a>
-                                                </h3>
-                                                <div class="detail-1 d-flex justify-content-start">
-                                                    <div class="category">
-                                                        {{ $item->rJobCategory->name }}
-                                                    </div>
-                                                    <div class="location">
-                                                        {{ $item->rJobLocation->name }}
-                                                    </div>
+                                @else
+                                    @foreach ($jobs as $item)
+                                        <div class="col-md-12">
+                                            <div class="item d-flex justify-content-start">
+                                                <div class="logo">
+                                                    <img src="{{ asset('uploads/' . $item->rCompany->logo) }}"
+                                                        alt="" />
                                                 </div>
-                                                <div class="detail-2 d-flex justify-content-start">
-                                                    <div class="date">
-                                                        {{ $item->created_at->diffForHumans() }}
+                                                <div class="text">
+                                                    <h3>
+                                                        <a href="{{ route('job', $item->id) }}">{{ $item->title }},
+                                                            {{ $item->rCompany->company_name }}</a>
+                                                    </h3>
+                                                    <div class="detail-1 d-flex justify-content-start">
+                                                        <div class="category">
+                                                            {{ $item->rJobCategory->name }}
+                                                        </div>
+                                                        <div class="location">
+                                                            {{ $item->rJobLocation->name }}
+                                                        </div>
                                                     </div>
-                                                    <div class="budget">
-                                                        {{ $item->rJobSalaryRange->name }}
+                                                    <div class="detail-2 d-flex justify-content-start">
+                                                        <div class="date">
+                                                            {{ $item->created_at->diffForHumans() }}
+                                                        </div>
+                                                        <div class="budget">
+                                                            {{ $item->rJobSalaryRange->name }}
+                                                        </div>
+                                                        @if (date('Y-m-d') > $item->deadline)
+                                                            <div class="expired">
+                                                                Expired
+                                                            </div>
+                                                        @endif
                                                     </div>
-                                                    @if (date('Y-m-d') > $item->deadline)
-                                                    <div class="expired">
-                                                        Expired
+                                                    <div class="special d-flex justify-content-start">
+                                                        @if ($item->is_featured == 1)
+                                                            <div class="featured">
+                                                                Featured
+                                                            </div>
+                                                        @endif
+                                                        <div class="type">
+                                                            {{ $item->rJobType->name }}
+                                                        </div>
+                                                        @if ($item->is_urgent == 1)
+                                                            <div class="urgent">
+                                                                Urgent
+                                                            </div>
+                                                        @endif
                                                     </div>
+                                                    @if (!Auth::guard('company')->check())
+                                                        <div class="bookmark">
+                                                            @if (Auth::guard('candidate')->check())
+                                                                @php
+                                                                    $count = \App\Models\CandidateBookmark::where('candidate_id', Auth::guard('candidate')->user()->id)
+                                                                        ->where('job_id', $item->id)
+                                                                        ->count();
+                                                                @endphp
+                                                                @if ($count > 0)
+                                                                    @php
+                                                                        $bookmark_status = 'active';
+                                                                    @endphp
+                                                                @else
+                                                                    @php
+                                                                        $bookmark_status = '';
+                                                                    @endphp
+                                                                @endif
+                                                            @else
+                                                                @php
+                                                                    $bookmark_status = '';
+                                                                @endphp
+                                                            @endif
+                                                            <a href="{{ route('candidate_bookmark_add', $item->id) }}"><i
+                                                                    class="fas fa-bookmark {{ $bookmark_status }}"></i></a>
+                                                        </div>
                                                     @endif
-                                                </div>
-                                                <div class="special d-flex justify-content-start">
-                                                    @if ($item->is_featured == 1)
-                                                    <div class="featured">
-                                                        Featured
-                                                    </div> 
-                                                    @endif
-                                                    <div class="type">
-                                                        {{ $item->rJobType->name }}
-                                                    </div>
-                                                    @if ($item->is_urgent == 1)
-                                                    <div class="urgent">
-                                                        Urgent
-                                                    </div>
-                                                    @endif
-                                                </div>
-                                                <div class="bookmark">
-                                                    <a href=""><i class="fas fa-bookmark active"></i></a>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        {{-- Giữ lại url khi phân trang --}}
-                                        {{ $jobs->appends($_GET)->links() }}
-                                    </div>
-                                @endforeach
+                                        <div class="col-md-12">
+                                            {{-- Giữ lại url khi phân trang --}}
+                                            {{ $jobs->appends($_GET)->links() }}
+                                        </div>
+                                    @endforeach
                                 @endif
 
                             </div>

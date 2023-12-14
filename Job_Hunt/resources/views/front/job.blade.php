@@ -34,8 +34,11 @@
                             </div>
                             <div class="apply">
                                 @if (date('Y-m-d') < $job_single->deadline)
-                                    <a href="apply.html" class="btn btn-primary">Apply Now</a>
-                                    <a href="apply.html" class="btn btn-primary save-job">Bookmark</a>
+                                    @if (!Auth::guard('company')->check())
+                                        <a href="{{ route('candidate_apply', $job_single->id) }}" class="btn btn-primary">Apply Now</a>
+                                        <a href="{{ route('candidate_bookmark_add', $job_single->id) }}"
+                                            class="btn btn-primary save-job">Bookmark</a>
+                                    @endif
                                 @endif
                             </div>
                         </div>
@@ -102,15 +105,15 @@
                             <div class="container">
                                 <div class="row">
                                     @php
-                                        $i=0
+                                        $i = 0;
                                     @endphp
                                     @foreach ($jobs as $item)
-                                    @if ($job_single->id == $item->id)
-                                        @continue
-                                    @endif
-                                    @php
-                                        $i++
-                                    @endphp
+                                        @if ($job_single->id == $item->id)
+                                            @continue
+                                        @endif
+                                        @php
+                                            $i++;
+                                        @endphp
                                         <div class="col-md-12">
                                             <div class="item d-flex justify-content-start">
                                                 <div class="logo">
@@ -158,15 +161,38 @@
                                                             </div>
                                                         @endif
                                                     </div>
-                                                    <div class="bookmark">
-                                                        <a href=""><i class="fas fa-bookmark active"></i></a>
-                                                    </div>
+                                                    @if (!Auth::guard('company')->check())
+                                                        <div class="bookmark">
+                                                            @if (Auth::guard('candidate')->check())
+                                                                @php
+                                                                    $count = \App\Models\CandidateBookmark::where('candidate_id', Auth::guard('candidate')->user()->id)
+                                                                        ->where('job_id', $item->id)
+                                                                        ->count();
+                                                                @endphp
+                                                                @if ($count > 0)
+                                                                    @php
+                                                                        $bookmark_status = 'active';
+                                                                    @endphp
+                                                                @else
+                                                                    @php
+                                                                        $bookmark_status = '';
+                                                                    @endphp
+                                                                @endif
+                                                            @else
+                                                                @php
+                                                                    $bookmark_status = '';
+                                                                @endphp
+                                                            @endif
+                                                            <a href="{{ route('candidate_bookmark_add', $item->id) }}"><i
+                                                                    class="fas fa-bookmark {{ $bookmark_status }}"></i></a>
+                                                        </div>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
                                     @endforeach
-                                    @if ($i==0)
-                                    <div class="text-danger">No Result Found</div>
+                                    @if ($i == 0)
+                                        <div class="text-danger">No Result Found</div>
                                     @endif
                                 </div>
                             </div>
@@ -244,13 +270,16 @@
                                 <input type="hidden" name="job_title" value="{{ $job_single->title }}">
                                 <input type="hidden" name="receive_email" value="{{ $job_single->rCompany->email }}">
                                 <div class="mb-3">
-                                    <input type="text" name="visitor_name" class="form-control" placeholder="Full Name" />
+                                    <input type="text" name="visitor_name" class="form-control"
+                                        placeholder="Full Name" />
                                 </div>
                                 <div class="mb-3">
-                                    <input type="email" name="visitor_email" class="form-control" placeholder="Email Address" />
+                                    <input type="email" name="visitor_email" class="form-control"
+                                        placeholder="Email Address" />
                                 </div>
                                 <div class="mb-3">
-                                    <input type="text" name="visitor_phone" class="form-control" placeholder="Phone Number" />
+                                    <input type="text" name="visitor_phone" class="form-control"
+                                        placeholder="Phone Number" />
                                 </div>
                                 <div class="mb-3">
                                     <textarea class="form-control h-150" name="visitor_message" rows="3" placeholder="Message"></textarea>
@@ -269,6 +298,7 @@
                                 <i class="fas fa-file-invoice"></i>
                                 Location Map
                             </h2>
+
                             <div class="location-map">
                                 {!! $job_single->map_code !!}
                             </div>

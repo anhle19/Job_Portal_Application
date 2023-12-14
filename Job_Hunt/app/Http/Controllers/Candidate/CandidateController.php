@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Candidate;
 
 use App\Http\Controllers\Controller;
 use App\Models\Candidate;
+use App\Models\CandidateApplication;
 use App\Models\CandidateAward;
+use App\Models\CandidateBookmark;
 use App\Models\CandidateEducation;
 use App\Models\CandidateExperience;
 use App\Models\CandidateResume;
 use App\Models\CandidateSkill;
+use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -373,5 +376,66 @@ class CandidateController extends Controller
     public function resume_delete($id) {
         CandidateResume::where('id', $id)->delete();
         return redirect()->back()->with('success', 'Data is deleted successful!');
+    }
+
+    public function bookmark_add($id) {
+        //Kiểm tra bookmark trùng nhau
+        $existing_bookmark = CandidateBookmark::where('candidate_id', Auth::guard('candidate')->user()->id)
+        ->where('job_id', $id)->count();
+
+        if($existing_bookmark > 0) {
+            return redirect()->back()->with('error', 'Job is already bookmarked!');
+        }
+
+        $obj = new CandidateBookmark();
+        $obj->candidate_id = Auth::guard('candidate')->user()->id;
+        $obj->job_id = $id;
+        $obj->save();
+
+        return redirect()->back()->with('success', 'Job is bookmarked successful!');
+    }
+
+    public function bookmark_view() {
+        $bookmarks = CandidateBookmark::where('candidate_id', Auth::guard('candidate')->user()->id)->orderBy('id', 'desc')->get();
+
+        return view('candidate.bookmark',compact('bookmarks'));
+    }
+
+    public function bookmark_delete($id) {
+        CandidateBookmark::where('id', $id)->delete();
+        return redirect()->back()->with('success', 'Bookmarked job is deleted successful!');
+    }
+
+    public function apply($id) {
+        $existing_application = CandidateApplication::where('candidate_id', Auth::guard('candidate')->user()->id)
+        ->where('job_id', $id)->count();
+
+        if($existing_application > 0) {
+            return redirect()->back()->with('error', 'Job is already applied!');
+        }
+        $job_single = Job::where('id', $id)->first();
+
+        return view('candidate.apply', compact('job_single'));
+    }
+
+    public function apply_submit(Request $request,$id) {
+
+        $request->validate([
+            'cover_letter' => 'required'
+        ]);
+
+        $obj = new CandidateApplication();
+        $obj->candidate_id = Auth::guard('candidate')->user()->id;
+        $obj->job_id = $id;
+        $obj->cover_letter = $request->cover_letter;
+        $obj->status = 'Applied';
+        $obj->save();
+
+        return redirect()->route('job', $id)->with('success', 'Your application is sent successfully!');
+    }
+
+    public function applications() {
+        $applied_jobs = CandidateApplication::with('rJob')->where('candidate_id', Auth::guard('candidate')->user()->id)->get();
+        return view('candidate.applications', compact('applied_jobs'));
     }
 }
