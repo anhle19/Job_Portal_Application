@@ -3,6 +3,13 @@
 namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
+use App\Models\Candidate;
+use App\Models\CandidateApplication;
+use App\Models\CandidateAward;
+use App\Models\CandidateEducation;
+use App\Models\CandidateExperience;
+use App\Models\CandidateResume;
+use App\Models\CandidateSkill;
 use App\Models\Company;
 use App\Models\CompanyIndustry;
 use App\Models\CompanyLocation;
@@ -531,5 +538,42 @@ class CompanyController extends Controller
     public function jobs_delete($id) {
         Job::where('id', $id)->first()->delete();
         return redirect()->route('company_jobs')->with('success', 'Data is deleted successful!');
+    }
+
+    public function candidate_applications() {
+        $jobs = Job::with('rJobCategory', 'rJobLocation')
+        ->where('company_id', Auth::guard('company')->user()->id)
+        ->orderBy('id', 'desc')->get();
+
+        return view('company.applications', compact('jobs'));
+    }
+
+    public function applicants($id) {
+        $applicants = CandidateApplication::with('rCandidate')->where('job_id', $id)->orderBy('id', 'desc')->get();
+        $job_single = Job::where('id', $id)->first();
+        return view('company.applicants', compact('applicants', 'job_single'));
+    }
+
+    public function applicants_detail($id) {
+        $candidate_single = Candidate::where('id', $id)->first();
+        $educations = CandidateEducation::where('candidate_id', $id)->get();
+        $skills = CandidateSkill::where('candidate_id', $id)->get();
+        $experiences = CandidateExperience::where('candidate_id', $id)->get();
+        $awards = CandidateAward::where('candidate_id', $id)->get();
+        $resumes = CandidateResume::where('candidate_id', $id)->get();
+
+        return view('company.applicant_detail', 
+        compact('candidate_single', 'educations', 'skills', 'experiences','awards', 'resumes'));
+    }
+
+    public function application_status_change(Request $request) {
+        $obj = CandidateApplication::where('candidate_id', $request->candidate_id)
+        ->where('job_id', $request->job_id)->first();
+        if($request->status != null) {
+            $obj->status = $request->status;
+            $obj->update();
+        }
+
+        return redirect()->back()->with('success', 'Status is changed successfully!');
     }
 }

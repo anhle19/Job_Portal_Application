@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Mail\Websitemail;
+use App\Models\Advertisement;
 use App\Models\Job;
 use App\Models\JobCategory;
 use App\Models\JobExperience;
@@ -28,6 +29,7 @@ class JobListingController extends Controller
         $job_experiences = JobExperience::orderBy('id', 'asc')->get();
         $job_genders = JobGender::orderBy('id', 'asc')->get();
         $job_salary_ranges = JobSalaryRange::orderBy('id', 'asc')->get();
+        $advertisement = Advertisement::where('id', 1)->first();
 
         $form_data = array(
             'title' => $request->title,
@@ -77,7 +79,8 @@ class JobListingController extends Controller
             'job_experiences',
             'job_genders',
             'job_salary_ranges',
-            'form_data'
+            'form_data',
+            'advertisement'
         ));
     }
 

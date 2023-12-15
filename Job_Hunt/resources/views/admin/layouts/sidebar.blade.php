@@ -137,6 +137,12 @@
                     <span>Post</span></a>
             </li>
 
+            <li class="nav-item dropdown {{ Request::is('admin/advertisement') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('admin_advertisement') }}" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Advertisement"><i class="fas fa-hand-point-right"></i>
+                    <span>Advertisement</span></a>
+            </li>
+
             <li class="nav-item dropdown {{ Request::is('admin/faq/*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('admin_faq') }}" data-bs-toggle="tooltip"
                     data-bs-placement="right" title="FAQ"><i class="fas fa-hand-point-right"></i>

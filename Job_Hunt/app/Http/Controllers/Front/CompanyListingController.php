@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Mail\Websitemail;
+use App\Models\Advertisement;
 use App\Models\Company;
 use App\Models\CompanyIndustry;
 use App\Models\CompanyLocation;
@@ -31,6 +32,7 @@ class CompanyListingController extends Controller
         $company_locations = CompanyLocation::orderBy('name', 'asc')->get();
         $company_industries = CompanyIndustry::orderBy('name', 'asc')->get();
         $company_sizes = CompanySize::orderBy('id', 'asc')->get();
+        $advertisement = Advertisement::where('id', 1)->first(); 
 
         $form_data = array(
             'company_name' => $request->company_name,
@@ -62,7 +64,7 @@ class CompanyListingController extends Controller
 
         $companies = $companies->paginate(9);
 
-        return view('front.company_listing', compact('companies','company_locations', 'company_industries', 'company_sizes', 'form_data'));
+        return view('front.company_listing', compact('companies','company_locations', 'company_industries', 'company_sizes', 'form_data', 'advertisement'));
     }
 
     public function detail($id) {

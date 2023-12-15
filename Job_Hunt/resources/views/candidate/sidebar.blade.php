@@ -8,22 +8,27 @@
     <li class="list-group-item {{ Request::is('candidate/bookmark-view') ? 'active': '' }}">
         <a href="{{ route('candidate_bookmark_view') }}">Bookmarked Jobs</a>
     </li>
-    <li class="list-group-item {{ Request::is('candidate/education/view') ? 'active': '' }}">
-        <a href="{{ route('candidate_dashboard') }}">Education</a>
+    <li class="list-group-item {{ Request::is('candidate/education/view') || Request::is('candidate/education/create') 
+    || Request::is('candidate/education/edit') ? 'active': '' }}">
+        <a href="{{ route('candidate_education') }}">Education</a>
     </li>
-    <li class="list-group-item {{ Request::is('candidate/skill/view') ? 'active': '' }}">
+    <li class="list-group-item {{ Request::is('candidate/skill/view') || Request::is('candidate/skill/create') 
+    || Request::is('candidate/skill/edit') ? 'active': '' }}">
         <a href="{{ route('candidate_skill') }}">Skills</a>
     </li>
-    <li class="list-group-item {{ Request::is('candidate/experience/view') ? 'active': '' }}">
+    <li class="list-group-item {{ Request::is('candidate/experience/view') || Request::is('candidate/experience/create') 
+    || Request::is('candidate/experience/edit') ? 'active': '' }}">
         <a href="{{ route('candidate_experience') }}">Work Experience</a>
     </li>
-    <li class="list-group-item {{ Request::is('candidate/award/view') ? 'active': '' }}">
+    <li class="list-group-item {{ Request::is('candidate/award/view') || Request::is('candidate/award/create') 
+    || Request::is('candidate/award/edit') ? 'active': '' }}">
         <a href="{{ route('candidate_award') }}">Awards</a>
     </li>
     <li class="list-group-item {{ Request::is('candidate/edit-profile') ? 'active': '' }}">
         <a href="{{ route('candidate_edit_profile') }}">Edit Profile</a>
     </li>
-    <li class="list-group-item {{ Request::is('candidate/resume/view') ? 'active': '' }}">
+    <li class="list-group-item {{ Request::is('candidate/resume/view') || Request::is('candidate/resume/create') 
+    || Request::is('candidate/resume/edit') ? 'active': '' }}">
         <a href="{{ route('candidate_resume') }}">Resume Upload</a>
     </li>
     <li class="list-group-item {{ Request::is('candidate/edit-password') ? 'active': '' }}">

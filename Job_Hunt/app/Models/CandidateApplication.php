@@ -14,4 +14,8 @@ class CandidateApplication extends Model
     public function rJob() {
         return $this->belongsTo(Job::class, 'job_id');
     }
+
+    public function rCandidate() {
+        return $this->belongsTo(Candidate::class, 'candidate_id');
+    }
 }

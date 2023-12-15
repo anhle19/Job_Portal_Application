@@ -58,7 +58,7 @@
                                                     $color = 'danger';
                                                 @endphp
                                             @endif
-                                            <div class="badge bg-primary {{ $color }}">
+                                            <div class="badge bg-{{ $color }}">
                                                 {{ $item->status }}
                                             </div>
                                         </td>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminAdvertisementController;
 use Illuminate\Support\Facades\Route;
 
 //Front
@@ -112,6 +113,11 @@ Route::middleware('company:company')->group(function () {
     Route::get('/company/orders', [CompanyController::class, 'orders'])->name('company_orders');
     Route::get('/company/make-payment', [CompanyController::class, 'make_payment'])->name('company_make_payment');
     Route::get('/company/logout', [CompanyController::class, 'logout'])->name('company_logout');
+
+    Route::get('/company/candidate-applications', [CompanyController::class, 'candidate_applications'])->name('company_candidate_applications');
+    Route::get('/company/applicants/{id}', [CompanyController::class, 'applicants'])->name('company_applicants');
+    Route::get('/company/applicants-detail/{id}', [CompanyController::class, 'applicants_detail'])->name('company_applicants_detail');
+    Route::post('/company/application-status-change', [CompanyController::class, 'application_status_change'])->name('application_status_change');
 
     Route::get('/company/edit-profile', [CompanyController::class, 'edit_profile'])->name('company_edit_profile');
     Route::post('/company/edit-profile/update', [CompanyController::class, 'edit_profile_update'])->name('company_edit_profile_update');
@@ -363,4 +369,7 @@ Route::middleware(['admin:admin'])->group(function () {
     Route::get('/admin/company-size/edit/{id}', [AdminCompanySizeController::class, 'edit'])->name('admin_company_size_edit');
     Route::post('/admin/company-size/update/{id}', [AdminCompanySizeController::class, 'update'])->name('admin_company_size_update');
     Route::get('/admin/company-size/delete/{id}', [AdminCompanySizeController::class, 'delete'])->name('admin_company_size_delete');
+
+    Route::get('/admin/advertisement', [AdminAdvertisementController::class, 'index'])->name('admin_advertisement');
+    Route::post('/admin/advertisement/update', [AdminAdvertisementController::class, 'update'])->name('admin_advertisement_update');
 });
