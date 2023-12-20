@@ -67,7 +67,7 @@
                 Request::is('admin/job-type/*') ||
                 Request::is('admin/job-experience/*') ||
                 Request::is('admin/job-gender/*') ||
-                Request::is('admin/job-salary_range/*')
+                Request::is('admin/job-salary-range/*')
                     ? 'active'
                     : '' }}">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-hand-point-right"></i><span>
@@ -91,7 +91,7 @@
                     <li class="{{ Request::is('admin/job-gender/*') ? 'active' : '' }}"><a class="nav-link"
                             href="{{ route('admin_job_gender') }}"><i class="fas fa-angle-right"></i> Job Gender</a>
                     </li>
-                    <li class="{{ Request::is('admin/job-salary_range/*') ? 'active' : '' }}"><a class="nav-link"
+                    <li class="{{ Request::is('admin/job-salary-range/') ? 'active' : '' }}"><a class="nav-link"
                             href="{{ route('admin_job_salary_range') }}"><i class="fas fa-angle-right"></i> Job Salary
                             Range</a>
                     </li>

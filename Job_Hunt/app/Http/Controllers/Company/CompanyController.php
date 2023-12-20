@@ -7,6 +7,7 @@ use App\Mail\Websitemail;
 use App\Models\Candidate;
 use App\Models\CandidateApplication;
 use App\Models\CandidateAward;
+use App\Models\CandidateBookmark;
 use App\Models\CandidateEducation;
 use App\Models\CandidateExperience;
 use App\Models\CandidateResume;
@@ -551,6 +552,18 @@ class CompanyController extends Controller
 
     public function jobs_delete($id) {
         Job::where('id', $id)->first()->delete();
+        //Kiểm tra và xóa những bản ghi chứa job_id
+        $application_count = CandidateApplication::where('job_id', $id)->count();
+        $bookmark_count = CandidateBookmark::where('job_id', $id)->count();
+
+        if($application_count > 0) {
+            CandidateApplication::where('job_id', $id)->delete();
+        }
+
+        if($bookmark_count > 0) {
+            CandidateBookmark::where('job_id', $id)->delete();
+        }
+        
         return redirect()->route('company_jobs')->with('success', 'Data is deleted successful!');
     }
 
