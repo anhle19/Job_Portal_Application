@@ -1,7 +1,10 @@
 @extends('front.layouts.app')
 
+@section('seo_title', $other_page_data->job_listing_page_title)
+@section('seo_meta_description', $other_page_data->job_listing_page_meta_description)
+
 @section('main-content')
-    <div class="page-top page-top-job-single" style="background-image: url({{ asset('uploads/banner.jpg') }})">
+    <div class="page-top page-top-job-single" style="background-image: url({{ asset('uploads/'.$global_banner_data->banner_job_detail) }})">
         <div class="bg"></div>
         <div class="container">
             <div class="row">

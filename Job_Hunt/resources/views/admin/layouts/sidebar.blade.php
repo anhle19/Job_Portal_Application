@@ -119,6 +119,20 @@
                 </ul>
             </li>
 
+            <li
+                class="nav-item dropdown {{ Request::is('admin/all-subscribers') || Request::is('admin/subscriber-send-email') ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-hand-point-right"></i><span>
+                        Subscriber Section </span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{ Request::is('admin/all-subscribers') ? 'active' : '' }}"><a class="nav-link"
+                            href="{{ route('admin_all_subscribers') }}"><i class="fas fa-angle-right"></i> All Subscribers</a>
+                    </li>
+                    <li class="{{ Request::is('admin/subscriber-send-email') ? 'active' : '' }}"><a class="nav-link"
+                            href="{{ route('admin_subscriber_send_email') }}"><i class="fas fa-angle-right"></i> Send Email to Subscribers</a>
+                    </li>
+                </ul>
+            </li>
+
             <li class="nav-item dropdown {{ Request::is('admin/why-choose/*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('admin_why_choose') }}" data-bs-toggle="tooltip"
                     data-bs-placement="right" title="Why Choose Items"><i class="fas fa-hand-point-right"></i>
@@ -137,6 +151,12 @@
                     <span>Post</span></a>
             </li>
 
+            <li class="nav-item dropdown {{ Request::is('admin/banner') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('admin_banner') }}" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Banner"><i class="fas fa-hand-point-right"></i>
+                    <span>Banner</span></a>
+            </li>
+
             <li class="nav-item dropdown {{ Request::is('admin/advertisement') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('admin_advertisement') }}" data-bs-toggle="tooltip"
                     data-bs-placement="right" title="Advertisement"><i class="fas fa-hand-point-right"></i>
@@ -153,6 +173,12 @@
                 <a class="nav-link" href="{{ route('admin_package') }}" data-bs-toggle="tooltip"
                     data-bs-placement="right" title="Package"><i class="fas fa-hand-point-right"></i>
                     <span>Package</span></a>
+            </li>
+
+            <li class="nav-item dropdown {{ Request::is('admin/settings') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('admin_settings') }}" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Settings"><i class="fas fa-hand-point-right"></i>
+                    <span>Settings</span></a>
             </li>
 
         </ul>

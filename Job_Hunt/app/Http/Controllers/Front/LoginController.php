@@ -30,7 +30,8 @@ class LoginController extends Controller
 
         $credential = [
             'username' => $request->username,
-            'password' => $request->password
+            'password' => $request->password,
+            'status' => 1
         ];
 
         if(Auth::guard('company')->attempt($credential)) {
@@ -48,7 +49,8 @@ class LoginController extends Controller
 
         $credential = [
             'username' => $request->username,
-            'password' => $request->password
+            'password' => $request->password,
+            'status' => 1
         ];
 
         if(Auth::guard('candidate')->attempt($credential)) {

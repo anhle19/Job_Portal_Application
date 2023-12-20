@@ -4,7 +4,7 @@
 @section('seo_meta_description', $privacy_page_data->meta_description)
 
 @section('main-content')
-    <div class="page-top" style="background-image: url('{{ asset('uploads/'.'banner.jpg') }}')">
+    <div class="page-top" style="background-image: url('{{ asset('uploads/'.$global_banner_data->banner_privacy) }}')">
         <div class="bg"></div>
         <div class="container">
             <div class="row">

@@ -4,7 +4,7 @@
 @section('seo_meta_description', $other_page_data->signup_page_meta_description)
 
 @section('main-content')
-    <div class="page-top" style="background-image: url('{{ asset('uploads/' . 'banner.jpg') }}')">
+    <div class="page-top" style="background-image: url('{{ asset('uploads/' . $global_banner_data->banner_signup) }}')">
         <div class="bg"></div>
         <div class="container">
             <div class="row">

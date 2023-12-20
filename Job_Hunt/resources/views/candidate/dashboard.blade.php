@@ -1,7 +1,8 @@
 @extends('front.layouts.app')
 
 @section('main-content')
-    <div class="page-top" style="background-image: url('{{ asset('uploads/'.'banner.jpg') }}')">
+    <div class="page-top"
+        style="background-image: url('{{ asset('uploads/' . $global_banner_data->banner_candidate_panel) }}')">
         <div class="bg"></div>
         <div class="container">
             <div class="row">
@@ -27,81 +28,74 @@
                     <div class="row box-items">
                         <div class="col-md-4">
                             <div class="box1">
-                                <h4>12</h4>
+                                <h4>{{ $total_applied_job }}</h4>
                                 <p>Applied Jobs</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="box2">
-                                <h4>3</h4>
-                                <p>Bookmarked Jobs</p>
+                                <h4>{{ $total_rejected_job }}</h4>
+                                <p>Rejected Jobs</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="box3">
-                                <h4>5</h4>
-                                <p>Rejected Jobs</p>
+                                <h4>{{ $total_approved_job }}</h4>
+                                <p>Approved Jobs</p>
                             </div>
                         </div>
                     </div>
 
                     <h3 class="mt-5">Recently Applied</h3>
 
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <tbody>
-                                <tr>
-                                    <th>SL</th>
-                                    <th>Job Title</th>
-                                    <th>Company</th>
-                                    <th>Status</th>
-                                    <th class="w-100">Detail</th>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Senior Laravel Developer</td>
-                                    <td>ABC Multimedia</td>
-                                    <td>
-                                        <div class="badge bg-primary">
-                                            Applied
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <a href="job.html" class="btn btn-primary btn-sm text-white"><i
-                                                class="fas fa-eye"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Expert Laravel Developer</td>
-                                    <td>Big Axis Limited</td>
-                                    <td>
-                                        <div class="badge bg-danger">
-                                            Rejected
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <a href="job.html" class="btn btn-primary btn-sm text-white"><i
-                                                class="fas fa-eye"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>MySQL Database Expert</td>
-                                    <td>Kite IT Solution</td>
-                                    <td>
-                                        <div class="badge bg-success">
-                                            Approved
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <a href="job.html" class="btn btn-primary btn-sm text-white"><i
-                                                class="fas fa-eye"></i></a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    @if ($applications == null)
+                        <div class="text-danger">No Result Found</div>
+                    @else
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>Job Title</th>
+                                        <th>Company</th>
+                                        <th>Status</th>
+                                        <th class="w-100">Detail</th>
+                                    </tr>
+                                    @foreach ($applications as $item)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->rJob->title }}</td>
+                                            <td>{{ $item->rJob->rCompany->company_name }}</td>
+                                            <td>
+                                                @if ($item->status == 'Applied')
+                                                    @php
+                                                        $color = 'primary';
+                                                    @endphp
+                                                @elseif($item->status == 'Approved')
+                                                    @php
+                                                        $color = 'success';
+                                                    @endphp
+                                                @else
+                                                    @php
+                                                        $color = 'danger';
+                                                    @endphp
+                                                @endif
+                                                <div class="badge bg-{{ $color }}">
+                                                    {{ $item->status }}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('job', $item->job_id) }}"
+                                                    class="btn btn-primary btn-sm text-white"><i class="fas fa-eye"></i></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+
+                                </tbody>
+                            </table>
+                        </div>
+                    @endif
+
                 </div>
             </div>
         </div>

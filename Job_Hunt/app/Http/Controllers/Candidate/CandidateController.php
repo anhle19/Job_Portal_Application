@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Candidate;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Websitemail;
 use App\Models\Candidate;
 use App\Models\CandidateApplication;
 use App\Models\CandidateAward;
@@ -15,11 +16,16 @@ use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class CandidateController extends Controller
 {
     public function dashboard() {
-        return view('candidate.dashboard');
+        $total_applied_job = CandidateApplication::where('candidate_id', Auth::guard('candidate')->user()->id)->where('status', 'Applied')->count();
+        $total_approved_job = CandidateApplication::where('candidate_id', Auth::guard('candidate')->user()->id)->where('status', 'Approved')->count();
+        $total_rejected_job = CandidateApplication::where('candidate_id', Auth::guard('candidate')->user()->id)->where('status', 'Rejected')->count();
+        $applications = CandidateApplication::with('rJob')->where('candidate_id', Auth::guard('candidate')->user()->id)->orderBy('id', 'desc')->take(3)->get();
+        return view('candidate.dashboard', compact('total_applied_job', 'total_approved_job', 'total_rejected_job', 'applications'));
     }
 
     public function logout() {
@@ -430,6 +436,21 @@ class CandidateController extends Controller
         $obj->cover_letter = $request->cover_letter;
         $obj->status = 'Applied';
         $obj->save();
+
+        $job_infor = Job::with('rCompany')->where('id', $id)->first();
+        $company_email = $job_infor->rCompany->email;
+
+        //Sending email to company
+        $applicants_list_url = route('company_applicants',$id);
+        $subject = 'A person applied to a job';
+        $message = 'Please check the application: ';
+        $message .= '<a href="'.$applicants_list_url.'">Click here to see applicants list for this job</a>';
+
+        $data = array(
+            'subject' => $subject,
+            'message' => $message,
+        );
+        Mail::to($company_email)->send(new Websitemail($data));
 
         return redirect()->route('job', $id)->with('success', 'Your application is sent successfully!');
     }

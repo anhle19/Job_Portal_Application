@@ -4,7 +4,7 @@
 @section('seo_meta_description', $blog_page_data->meta_description)
 
 @section('main-content')
-    <div class="page-top" style="background-image: url('{{ asset('uploads/'.'banner.jpg') }}')">
+    <div class="page-top" style="background-image: url('{{ asset('uploads/'.$global_banner_data->banner_blog) }}')">
         <div class="bg"></div>
         <div class="container">
             <div class="row">
@@ -25,7 +25,7 @@
                             </div>
                             <div class="text">
                                 <h2>
-                                    <a href="post.html">{{ $item->title }}</a>
+                                    <a href="{{ route('post', $item->slug) }}">{{ $item->title }}</a>
                                 </h2>
                                 <div class="short-des">
                                     <p>

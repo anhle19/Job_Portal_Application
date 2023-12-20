@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Websitemail;
 use App\Models\Candidate;
 use App\Models\CandidateApplication;
 use App\Models\CandidateAward;
@@ -30,6 +31,7 @@ use App\Models\JobLocation;
 use App\Models\JobSalaryRange;
 use App\Models\JobType;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class CompanyController extends Controller
 {
@@ -84,6 +86,10 @@ class CompanyController extends Controller
         $order_data = Order::where('company_id', $company_id)->where('currently_active', 1)->first();
         $package_data = Package::where('id', $order_data->package_id)->first();
         $total_company_photos = CompanyPhoto::where('company_id', $company_id)->count();
+
+        if(date('Y-m-d') > $order_data->expire_date) {
+            return redirect()->back()->with('error', 'Your package has expired!');
+        }
 
         //Check the current package
         if ($total_company_photos == $package_data->total_allowed_photos) {
@@ -146,6 +152,10 @@ class CompanyController extends Controller
         $request->validate([
             'video_id' => 'required'
         ]);
+
+        if(date('Y-m-d') > $order_data->expire_date) {
+            return redirect()->back()->with('error', 'Your package has expired!');
+        }
 
         //Check the current package
         if ($total_company_videos == $package_data->total_allowed_videos) {
@@ -436,6 +446,10 @@ class CompanyController extends Controller
         $package_data = Package::where('id', $order_data->package_id)->first();
         $total_featured_jobs = Job::where('company_id', $company_id)->where('is_featured', 1)->count();
 
+        if(date('Y-m-d') > $order_data->expire_date) {
+            return redirect()->back()->with('error', 'Your package has expired!');
+        }
+
         if ($total_featured_jobs == $package_data->total_allowed_featured_jobs) {
             if ($request->is_featured == 1) {
                 return redirect()->back()->with('error', 'You already have posted the maximum number of featured jobs');
@@ -567,11 +581,25 @@ class CompanyController extends Controller
     }
 
     public function application_status_change(Request $request) {
-        $obj = CandidateApplication::where('candidate_id', $request->candidate_id)
+        $obj = CandidateApplication::with('rCandidate')->where('candidate_id', $request->candidate_id)
         ->where('job_id', $request->job_id)->first();
         if($request->status != null) {
             $obj->status = $request->status;
             $obj->update();
+        }
+
+        $candidate_email = $obj->rCandidate->email;
+        if($request->status == 'Approved') {
+            $detail_link = route('candidate_applications');
+            $subject = 'Congratulations! Your application is approved';
+            $message = 'Please check the detail: <br>';
+            $message .= '<a href="'.$detail_link.'">Click here to see the detail</a>';
+            $data = array(
+                'subject' => $subject,
+                'message' => $message,
+            );
+
+            Mail::to($candidate_email)->send(new Websitemail($data));
         }
 
         return redirect()->back()->with('success', 'Status is changed successfully!');

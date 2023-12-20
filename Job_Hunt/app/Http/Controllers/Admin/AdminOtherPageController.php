@@ -19,7 +19,9 @@ class AdminOtherPageController extends Controller
         $request->validate([
             'login_page_heading' => ' required',
             'signup_page_heading' => ' required',
-            'forget_password_page_heading' => ' required'
+            'forget_password_page_heading' => ' required',
+            'job_listing_page_heading' => ' required',
+            'company_listing_page_heading' => ' required',
         ]);
 
         $page_other_data->login_page_heading = $request->login_page_heading;
@@ -31,6 +33,12 @@ class AdminOtherPageController extends Controller
         $page_other_data->forget_password_page_heading = $request->forget_password_page_heading;
         $page_other_data->forget_password_page_title = $request->forget_password_page_title;
         $page_other_data->forget_password_page_meta_description = $request->forget_password_page_meta_description;
+        $page_other_data->job_listing_page_heading = $request->job_listing_page_heading;
+        $page_other_data->job_listing_page_title = $request->job_listing_page_title;
+        $page_other_data->job_listing_page_meta_description = $request->job_listing_page_meta_description;
+        $page_other_data->company_listing_page_heading = $request->company_listing_page_heading;
+        $page_other_data->company_listing_page_title = $request->company_listing_page_title;
+        $page_other_data->company_listing_page_meta_description = $request->company_listing_page_meta_description;
         $page_other_data->update();
 
         return redirect()->back()->with('success', 'Data information is saved successfully.');

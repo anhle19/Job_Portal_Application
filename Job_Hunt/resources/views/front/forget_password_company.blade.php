@@ -4,7 +4,7 @@
 @section('seo_meta_description', $other_page_data->forget_password_page_meta_description)
 
 @section('main-content')
-    <div class="page-top" style="background-image: url('{{ asset('uploads/'.'banner.jpg') }}')">
+    <div class="page-top" style="background-image: url('{{ asset('uploads/'.$global_banner_data->banner_forget_password) }}')">
         <div class="bg"></div>
         <div class="container">
             <div class="row">

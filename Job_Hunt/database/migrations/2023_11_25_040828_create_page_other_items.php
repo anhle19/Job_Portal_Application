@@ -24,6 +24,12 @@ return new class extends Migration
             $table->text('forget_password_page_heading');
             $table->text('forget_password_page_title')->nullable();
             $table->text('forget_password_page_meta_description')->nullable();
+            $table->text('company_listing_page_heading');
+            $table->text('company_listing_page_title')->nullable();
+            $table->text('company_listing_page_meta_description')->nullable();
+            $table->text('job_page_heading');
+            $table->text('job_page_title')->nullable();
+            $table->text('job_page_meta_description')->nullable();
             $table->timestamps();
         });
     }

@@ -8,7 +8,7 @@
     <title>@yield('seo_title')</title>
     <meta name="description" content="@yield('seo_meta_description')" />
 
-    <link rel="icon" type="image/png" href="{{ asset('uploads/favicon.png') }}" />
+    <link rel="icon" type="image/png" href="{{ asset('uploads/'.$global_setting_data->favicon) }}" />
 
     <!-- All CSS -->
     @include('front.layouts.styles')
@@ -25,39 +25,39 @@
             <div class="row">
                 <div class="col-md-6 left-side">
                     <ul>
-                        <li class="phone-text">111-222-3333</li>
-                        <li class="email-text">contact@arefindev.com</li>
+                        <li class="phone-text">{{ $global_setting_data->top_bar_phone }}</li>
+                        <li class="email-text">{{ $global_setting_data->top_bar_email }}</li>
                     </ul>
                 </div>
                 <div class="col-md-6 right-side">
                     <ul class="right">
                         @if (Auth::guard('company')->check() || Auth::guard('candidate')->check())
                             @if (Auth::guard('company')->check())
-                            <li class="menu">
-                                <a href="{{ route('company_dashboard') }}">
-                                    <i class="fas fa-home"></i> Dashboard
-                                </a>
-                            </li>
+                                <li class="menu">
+                                    <a href="{{ route('company_dashboard') }}">
+                                        <i class="fas fa-home"></i> Dashboard
+                                    </a>
+                                </li>
                             @else
-                            <li class="menu">
-                                <a href="{{ route('candidate_dashboard') }}">
-                                    <i class="fas fa-home"></i> Dashboard
-                                </a>
-                            </li> 
+                                <li class="menu">
+                                    <a href="{{ route('candidate_dashboard') }}">
+                                        <i class="fas fa-home"></i> Dashboard
+                                    </a>
+                                </li>
                             @endif
                         @else
-                        <li class="menu">
-                            <a href="{{ route('login') }}">
-                                <i class="fas fa-sign-in-alt"></i> Login
-                            </a>
-                        </li>
-                        <li class="menu">
-                            <a href="{{ route('signup') }}">
-                                <i class="fas fa-user"></i> Sign Up
-                            </a>
-                        </li>
+                            <li class="menu">
+                                <a href="{{ route('login') }}">
+                                    <i class="fas fa-sign-in-alt"></i> Login
+                                </a>
+                            </li>
+                            <li class="menu">
+                                <a href="{{ route('signup') }}">
+                                    <i class="fas fa-user"></i> Sign Up
+                                </a>
+                            </li>
                         @endif
-                        
+
                     </ul>
                 </div>
             </div>
@@ -75,10 +75,10 @@
                     <div class="item">
                         <h2 class="heading">For Candidates</h2>
                         <ul class="useful-links">
-                            <li><a href="">Browser Jobs</a></li>
-                            <li><a href="">Browse Candidates</a></li>
-                            <li><a href="">Candidate Dashboard</a></li>
-                            <li><a href="">Saved Jobs</a></li>
+                            <li><a href="{{ route('candidate_dashboard') }}">Candidate Dashboard</a></li>
+                            <li><a href="{{ route('job_listing') }}">Browse Jobs</a></li>
+                            <li><a href="{{ route('candidate_bookmark_view') }}">Bookmarked Jobs</a></li>
+                            <li><a href="{{ route('candidate_applications') }}">Applied Jobs</a></li>
                         </ul>
                     </div>
                 </div>
@@ -86,10 +86,10 @@
                     <div class="item">
                         <h2 class="heading">For Companies</h2>
                         <ul class="useful-links">
-                            <li><a href="">Post Job</a></li>
-                            <li><a href="">Browse Jobs</a></li>
-                            <li><a href="">Company Dashboard</a></li>
-                            <li><a href="">Applications</a></li>
+                            <li><a href="{{ route('company_dashboard') }}">Company Dashboard</a></li>
+                            <li><a href="{{ route('company_listing') }}">Browse Companies</a></li>
+                            <li><a href="{{ route('company_jobs_create') }}">Post New Job</a></li>
+                            <li><a href="{{ route('company_candidate_applications') }}">Candidate Applications</a></li>
                         </ul>
                     </div>
                 </div>
@@ -102,36 +102,36 @@
                                 <i class="fas fa-map-marker-alt"></i>
                             </div>
                             <div class="right">
-                                34 Antiger Lane, USA, 12937
+                                {{ $global_setting_data->footer_address }}
                             </div>
                         </div>
                         <div class="list-item">
                             <div class="left">
                                 <i class="fas fa-phone"></i>
                             </div>
-                            <div class="right">contact@arefindev.com</div>
+                            <div class="right">{{ $global_setting_data->footer_phone }}</div>
                         </div>
                         <div class="list-item">
                             <div class="left">
                                 <i class="fas fa-envelope"></i>
                             </div>
-                            <div class="right">122-222-1212</div>
+                            <div class="right">{{ $global_setting_data->footer_email }}</div>
                         </div>
                         <ul class="social">
                             <li>
-                                <a href=""><i class="fab fa-facebook-f"></i></a>
+                                <a href="{{ $global_setting_data->facebook }}"><i class="fab fa-facebook-f"></i></a>
                             </li>
                             <li>
-                                <a href=""><i class="fab fa-twitter"></i></a>
+                                <a href="{{ $global_setting_data->twitter }}"><i class="fab fa-twitter"></i></a>
                             </li>
                             <li>
-                                <a href=""><i class="fab fa-pinterest-p"></i></a>
+                                <a href="{{ $global_setting_data->pinterest }}"><i class="fab fa-pinterest-p"></i></a>
                             </li>
                             <li>
-                                <a href=""><i class="fab fa-linkedin-in"></i></a>
+                                <a href="{{ $global_setting_data->linkedin }}"><i class="fab fa-linkedin-in"></i></a>
                             </li>
                             <li>
-                                <a href=""><i class="fab fa-instagram"></i></a>
+                                <a href="{{ $global_setting_data->instagram }}"><i class="fab fa-instagram"></i></a>
                             </li>
                         </ul>
                     </div>
@@ -140,16 +140,15 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="item">
                         <h2 class="heading">Newsletter</h2>
-                        <p>
-                            To get the latest news from our website, please
-                            subscribe us here:
-                        </p>
-                        <form action="" method="post">
+                        <p>To get the latest news from our website, please subscribe us here:</p>
+                        <form action="{{ route('subscriber_send_email') }}" method="post" class="form_subscribe_ajax">
+                            @csrf
                             <div class="form-group">
-                                <input type="text" name="" class="form-control" />
+                                <input type="text" name="email" class="form-control">
+                                <span class="text-danger error-text email_error"></span>
                             </div>
                             <div class="form-group">
-                                <input type="submit" class="btn btn-primary" value="Subscribe Now" />
+                                <input type="submit" class="btn btn-primary" value="Subscribe Now">
                             </div>
                         </form>
                     </div>
@@ -163,7 +162,7 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6">
                     <div class="copyright">
-                        Copyright 2022, ArefinDev. All Rights Reserved.
+                        {{ $global_setting_data->copyright_text }}
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
@@ -203,7 +202,7 @@
             iziToast.error({
                 title: '',
                 position: 'topRight',
-                message: '{{ session() -> get('error') }}'
+                message: '{{ session()->get('error') }}'
             });
         </script>
     @endif
@@ -213,10 +212,55 @@
             iziToast.success({
                 title: '',
                 position: 'topRight',
-                message: '{{ session() -> get('success') }}'
+                message: '{{ session()->get('success') }}'
             });
         </script>
     @endif
+
+    <script>
+        (function($){
+            $(".form_subscribe_ajax").on('submit', function(e){
+                e.preventDefault();
+                var form = this;
+                $.ajax({
+                    url:$(form).attr('action'),
+                    method:$(form).attr('method'),
+                    data:new FormData(form),
+                    processData:false,
+                    dataType:'json',
+                    contentType:false,
+                    beforeSend:function(){
+                        $(form).find('span.error-text').text('');
+                    },
+                    success:function(data)
+                    {
+                        if(data.code == 0)
+                        {
+                            $.each(data.error_message, function(prefix, val) {
+                                $(form).find('span.'+prefix+'_error').text(val[0]);
+                            });
+                        }
+                        else if(data.code == 2)
+                        {
+                            $.each(data.error_message_2, function(prefix, val) {
+                                $('.email_error').text(data.error_message_2);
+                            });
+                        }
+                        else if(data.code == 1)
+                        {
+                            $(form)[0].reset();
+                            iziToast.success({
+                                title: '',
+                                position: 'topRight',
+                                message: data.success_message,
+                            });
+                         }
+        
+                    }
+                });
+            });
+        })(jQuery);
+        </script>
 </body>
 
 </html>

@@ -27,6 +27,14 @@
                                             data-bs-target="#v-pills-3" type="button" role="tab"
                                             aria-controls="v-pills-3" aria-selected="false">Forget Password Page</button>
 
+                                        <button class="nav-link" id="v-pills-4-tab" data-bs-toggle="pill"
+                                            data-bs-target="#v-pills-4" type="button" role="tab"
+                                            aria-controls="v-pills-4" aria-selected="false">Job Listing Page</button>
+
+                                        <button class="nav-link" id="v-pills-5-tab" data-bs-toggle="pill"
+                                            data-bs-target="#v-pills-5" type="button" role="tab"
+                                            aria-controls="v-pills-5" aria-selected="false">Company Listing Page</button>
+
                                     </div>
                                 </div>
                                 <div class="col-lg-9 col-md-12">
@@ -109,6 +117,60 @@
                                                 </div>
                                             </div>
                                             {{-- Forget Password Page Section End --}}
+                                        </div>
+
+                                        <div class="tab-pane fade" id="v-pills-4" role="tabpanel"
+                                            aria-labelledby="v-pills-4-tab" tabindex="4">
+                                            {{-- Job Listing Page Section Start --}}
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="mb-4">
+                                                        <label class="form-label">Heading *</label>
+                                                        <input type="text" class="form-control"
+                                                            name="job_listing_page_heading"
+                                                            value="{{ $page_other_data->job_listing_page_heading }}">
+                                                    </div>
+                                                    <div class="mb-4">
+                                                        <label class="form-label">Title </label>
+                                                        <input type="text" class="form-control"
+                                                            name="job_listing_page_title"
+                                                            value="{{ $page_other_data->job_listing_page_title }}">
+                                                    </div>
+                                                    <div class="mb-4">
+                                                        <label class="form-label">Meta Description </label>
+                                                        <textarea name="job_listing_page_meta_description" class="form-control h_100" cols="30" 
+                                                        rows="10">{{ $page_other_data->job_listing_page_meta_description }}</textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{-- Job Listing Page Section End --}}
+                                        </div>
+
+                                        <div class="tab-pane fade" id="v-pills-5" role="tabpanel"
+                                            aria-labelledby="v-pills-5-tab" tabindex="5">
+                                            {{-- Company Listing Page Section Start --}}
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="mb-4">
+                                                        <label class="form-label">Heading *</label>
+                                                        <input type="text" class="form-control"
+                                                            name="company_listing_page_heading"
+                                                            value="{{ $page_other_data->company_listing_page_heading }}">
+                                                    </div>
+                                                    <div class="mb-4">
+                                                        <label class="form-label">Title </label>
+                                                        <input type="text" class="form-control"
+                                                            name="company_listing_page_title"
+                                                            value="{{ $page_other_data->company_listing_page_title }}">
+                                                    </div>
+                                                    <div class="mb-4">
+                                                        <label class="form-label">Meta Description </label>
+                                                        <textarea name="company_listing_page_meta_description" class="form-control h_100" cols="30" 
+                                                        rows="10">{{ $page_other_data->company_listing_page_meta_description }}</textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{-- Company Listing Page Section End --}}
                                         </div>
 
                                     </div>

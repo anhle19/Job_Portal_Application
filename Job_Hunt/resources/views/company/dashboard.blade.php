@@ -1,7 +1,7 @@
 @extends('front.layouts.app')
 
 @section('main-content')
-    <div class="page-top" style="background-image: url('{{ asset('uploads/' . 'banner.jpg') }}')">
+    <div class="page-top" style="background-image: url('{{ asset('uploads/' . $global_banner_data->banner_company_panel) }}')">
         <div class="bg"></div>
         <div class="container">
             <div class="row">
@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-12">
-                    <h3>Hello, {{ Auth::guard('company')->user()->person_name }} </h3>
+                    <h3>Hello, {{ Auth::guard('company')->user()->person_name }} ({{ Auth::guard('company')->user()->company_name }})</h3>
                     <p>See all the statistics at a glance:</p>
 
                     <div class="row box-items">

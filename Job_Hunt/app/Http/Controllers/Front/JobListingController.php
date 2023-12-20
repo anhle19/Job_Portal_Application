@@ -12,6 +12,8 @@ use App\Models\JobGender;
 use App\Models\JobLocation;
 use App\Models\JobSalaryRange;
 use App\Models\JobType;
+use App\Models\Order;
+use App\Models\PageOtherItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -23,6 +25,7 @@ class JobListingController extends Controller
         $jobs = Job::with('rCompany', 'rJobCategory', 'rJobLocation', 'rJobType', 
         'rJobExperience', 'rJobGender', 'rJobSalaryRange')->orderBy('id', 'desc');
 
+        $other_page_data = PageOtherItem::where('id', 1)->first();
         $job_locations = JobLocation::orderBy('id', 'asc')->get();
         $job_categories = JobCategory::orderBy('id', 'asc')->get();
         $job_types = JobType::orderBy('id', 'asc')->get();
@@ -80,16 +83,25 @@ class JobListingController extends Controller
             'job_genders',
             'job_salary_ranges',
             'form_data',
-            'advertisement'
+            'advertisement',
+            'other_page_data'
         ));
     }
 
     public function detail($id) {
         $job_single = Job::with('rCompany', 'rJobCategory', 'rJobLocation', 'rJobType', 
         'rJobExperience', 'rJobGender', 'rJobSalaryRange')->where('id', $id)->first();
+        //Kiểm tra ngày hết hạn
+        $company_id = $job_single->company_id;
+        $order_data = Order::where('company_id', $company_id)->where('currently_active', 1)->first();
+        if(date('Y-m-d') > $order_data->expire_date) {
+            return redirect()->route('home');
+        } 
         $jobs = Job::with('rCompany', 'rJobCategory', 'rJobLocation', 'rJobType', 
         'rJobExperience', 'rJobGender', 'rJobSalaryRange')->where('job_category_id', $job_single->job_category_id)->orderBy('id', 'desc')->take(3)->get();
-        return view('front.job', compact('job_single','jobs'));
+        $other_page_data = PageOtherItem::where('id', 1)->first();
+
+        return view('front.job', compact('job_single','jobs', 'other_page_data'));
     }
 
     public function send_email(Request $request) {

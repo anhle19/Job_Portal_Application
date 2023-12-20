@@ -13,6 +13,10 @@ class Company extends Authenticatable
         return $this->hasMany(Job::class);
     }
 
+    public function rOrder() {
+        return $this->hasMany(Order::class);
+    }
+
     public function rCompanyLocation() {
         return $this->belongsTo(CompanyLocation::class, 'company_location_id');
     }

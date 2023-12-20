@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminAdvertisementController;
+
 use Illuminate\Support\Facades\Route;
 
 //Front
@@ -17,6 +17,7 @@ use App\Http\Controllers\Front\ContactController;
 use App\Http\Controllers\Front\PricingController;
 use App\Http\Controllers\Front\JobListingController;
 use App\Http\Controllers\Front\CompanyListingController;
+use App\Http\Controllers\Front\SubscriberController;
 
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\Candidate\CandidateController;
@@ -39,6 +40,10 @@ use App\Http\Controllers\Admin\AdminPackageController;
 use App\Http\Controllers\Admin\AdminCompanyLocationController;
 use App\Http\Controllers\Admin\AdminCompanyIndustryController;
 use App\Http\Controllers\Admin\AdminCompanySizeController;
+use App\Http\Controllers\Admin\AdminAdvertisementController;
+use App\Http\Controllers\Admin\AdminBannerController;
+use App\Http\Controllers\Admin\AdminSubscriberController;
+use App\Http\Controllers\Admin\AdminSettingController;
 
 use App\Http\Controllers\Admin\AdminJobCategoryPageController;
 use App\Http\Controllers\Admin\AdminHomePageController;
@@ -49,7 +54,7 @@ use App\Http\Controllers\Admin\AdminTermPageController;
 use App\Http\Controllers\Admin\AdminOtherPageController;
 use App\Http\Controllers\Admin\AdminPricingPageController;
 use App\Http\Controllers\Admin\AdminPrivacyPageController;
-
+use App\Models\Subcriber;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,6 +87,9 @@ Route::post('/job-enquery/email', [JobListingController::class, 'send_email'])->
 Route::get('/company-listing', [CompanyListingController::class, 'index'])->name('company_listing');
 Route::get('/company-detail/{id}', [CompanyListingController::class, 'detail'])->name('company');
 Route::post('/company-contact/email', [CompanyListingController::class, 'send_email'])->name('company_contact_send_email');
+
+Route::post('/subscriber/send-email', [SubscriberController::class, 'send_email'])->name('subscriber_send_email');
+Route::get('/subscriber/verify/{emai}/{token}', [SubscriberController::class, 'verify'])->name('subscriber_email_verify');
 
 
 /* Company */
@@ -372,4 +380,15 @@ Route::middleware(['admin:admin'])->group(function () {
 
     Route::get('/admin/advertisement', [AdminAdvertisementController::class, 'index'])->name('admin_advertisement');
     Route::post('/admin/advertisement/update', [AdminAdvertisementController::class, 'update'])->name('admin_advertisement_update');
+
+    Route::get('/admin/banner', [AdminBannerController::class, 'index'])->name('admin_banner');
+    Route::post('/admin/banner/update', [AdminBannerController::class, 'update'])->name('admin_banner_update');
+
+    Route::get('/admin/all-subscribers', [AdminSubscriberController::class, 'all_subscribers'])->name('admin_all_subscribers');
+    Route::get('/admin/subscriber-send-email', [AdminSubscriberController::class, 'send_email'])->name('admin_subscriber_send_email');
+    Route::get('/admin/subscriber-delete/{id}', [AdminSubscriberController::class, 'delete'])->name('admin_subscriber_delete');
+    Route::post('/admin/subscriber-send-email-submit', [AdminSubscriberController::class, 'send_email_submit'])->name('admin_subscriber_send_email_submit');
+
+    Route::get('/admin/settings', [AdminSettingController::class, 'index'])->name('admin_settings');
+    Route::post('/admin/settings-update', [AdminSettingController::class, 'update'])->name('admin_settings_update');
 });
