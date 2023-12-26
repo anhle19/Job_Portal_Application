@@ -133,6 +133,13 @@
                 </ul>
             </li>
 
+            <li class="nav-item dropdown {{ Request::is('admin/companies') || Request::is('admin/companies-detail/*') ||
+            Request::is('admin/companies-jobs/*') || Request::is('admin/companies-applicants/*') || Request::is('admin/companies-applicants-resume/*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('admin_companies') }}" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Company Profile"><i class="fas fa-hand-point-right"></i>
+                    <span>Company Profile</span></a>
+            </li>
+
             <li class="nav-item dropdown {{ Request::is('admin/why-choose/*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('admin_why_choose') }}" data-bs-toggle="tooltip"
                     data-bs-placement="right" title="Why Choose Items"><i class="fas fa-hand-point-right"></i>

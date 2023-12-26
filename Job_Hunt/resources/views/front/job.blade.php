@@ -93,11 +93,11 @@
                         {!! $job_single->benefit !!}
                     </div>
 
-                    <div class="left-item">
+                    {{-- <div class="left-item">
                         <div class="apply">
                             <a href="apply.html" class="btn btn-primary">Apply Now</a>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="left-item">
                         <h2>

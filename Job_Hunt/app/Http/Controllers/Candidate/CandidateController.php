@@ -430,6 +430,7 @@ class CandidateController extends Controller
             'cover_letter' => 'required'
         ]);
 
+        //Lưu thông tin application vào database
         $obj = new CandidateApplication();
         $obj->candidate_id = Auth::guard('candidate')->user()->id;
         $obj->job_id = $id;
@@ -437,24 +438,30 @@ class CandidateController extends Controller
         $obj->status = 'Applied';
         $obj->save();
 
+        //Lấy email của công ty
         $job_infor = Job::with('rCompany')->where('id', $id)->first();
         $company_email = $job_infor->rCompany->email;
 
-        //Sending email to company
-        $applicants_list_url = route('company_applicants',$id);
-        $subject = 'A person applied to a job';
-        $message = 'Please check the application: ';
+        //Gửi email thông báo cho công ty
+        $applicants_list_url = route('company_applicants', $id);
+        $subject = 'A person applied to a job';    
+        $message = 'Please check the application: <br>';
         $message .= '<a href="'.$applicants_list_url.'">Click here to see applicants list for this job</a>';
 
+        //Data của email
         $data = array(
             'subject' => $subject,
             'message' => $message,
         );
+
         Mail::to($company_email)->send(new Websitemail($data));
 
         return redirect()->route('job', $id)->with('success', 'Your application is sent successfully!');
     }
 
+    /**
+     * Xem danh sách những job đã applied, cover letter, trang job detail
+     */
     public function applications() {
         $applied_jobs = CandidateApplication::with('rJob')->where('candidate_id', Auth::guard('candidate')->user()->id)->get();
         return view('candidate.applications', compact('applied_jobs'));

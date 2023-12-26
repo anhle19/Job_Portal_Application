@@ -44,6 +44,7 @@ use App\Http\Controllers\Admin\AdminAdvertisementController;
 use App\Http\Controllers\Admin\AdminBannerController;
 use App\Http\Controllers\Admin\AdminSubscriberController;
 use App\Http\Controllers\Admin\AdminSettingController;
+use App\Http\Controllers\Admin\AdminCompanyController;
 
 use App\Http\Controllers\Admin\AdminJobCategoryPageController;
 use App\Http\Controllers\Admin\AdminHomePageController;
@@ -391,4 +392,10 @@ Route::middleware(['admin:admin'])->group(function () {
 
     Route::get('/admin/settings', [AdminSettingController::class, 'index'])->name('admin_settings');
     Route::post('/admin/settings-update', [AdminSettingController::class, 'update'])->name('admin_settings_update');
+
+    Route::get('/admin/companies', [AdminCompanyController::class, 'index'])->name('admin_companies');
+    Route::get('/admin/companies-detail/{id}', [AdminCompanyController::class, 'companies_detail'])->name('admin_companies_detail');
+    Route::get('/admin/companies-jobs/{id}', [AdminCompanyController::class, 'companies_jobs'])->name('admin_companies_jobs');
+    Route::get('/admin/companies-applicants/{id}', [AdminCompanyController::class, 'companies_applicants'])->name('admin_companies_applicants');
+    Route::get('/admin/companies-applicants-resume/{id}', [AdminCompanyController::class, 'companies_applicants_resume'])->name('admin_companies_applicants_resume');
 });
