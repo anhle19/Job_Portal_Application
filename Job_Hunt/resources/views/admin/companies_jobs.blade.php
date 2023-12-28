@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('heading', 'Job of company: ' . $company_detail->company_name)
+@section('heading', 'Jobs of company: ' . $company_detail->company_name)
 
 @section('button')
     <div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Candidate;
 use App\Models\CandidateApplication;
 use App\Models\CandidateAward;
+use App\Models\CandidateBookmark;
 use App\Models\CandidateEducation;
 use App\Models\CandidateExperience;
 use App\Models\CandidateResume;
@@ -14,6 +15,7 @@ use App\Models\Company;
 use App\Models\CompanyPhoto;
 use App\Models\CompanyVideo;
 use App\Models\Job;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class AdminCompanyController extends Controller
@@ -51,5 +53,35 @@ class AdminCompanyController extends Controller
         $resumes = CandidateResume::where('candidate_id', $id)->get();
 
         return view('admin.companies_applicants_resume', compact('candidate_single', 'educations', 'skills', 'experiences', 'awards', 'resumes'));
+    }
+
+    public function delete($id) {
+        $company_data = Company::where('id', $id)->first();
+        $company_photos = CompanyPhoto::where('company_id', $id)->get();
+        $jobs = Job::where('company_id', $id)->get();
+        //Gỡ Job
+        if($jobs != null) {
+            foreach($jobs as $item) {
+                CandidateBookmark::where('job_id', $item->id)->delete();
+                CandidateApplication::where('job_id', $item->id)->delete();
+            }
+        }
+        //Gỡ logo của company
+        if($company_data->logo != null) {
+            unlink(public_path('uploads/'.$company_data->logo));
+        }
+        //Gỡ photo của company
+        if($company_photos != null) {
+            foreach($company_photos as $item) {
+                unlink(public_path('uploads/'.$item->photo));
+            }
+            CompanyPhoto::where('company_id', $id)->delete();
+        }
+        CompanyVideo::where('company_id', $id)->delete();
+        Job::where('company_id', $id)->delete();
+        Order::where('company_id', $id)->delete();
+        Company::where('id', $id)->delete();
+
+        return redirect()->back()->with('success', 'Data is deleted successful!');
     }
 }
