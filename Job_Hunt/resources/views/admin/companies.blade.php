@@ -40,9 +40,16 @@
                                                     class="badge bg-primary text-white w-100">Jobs</a>
                                             </td>
                                             <td class="pt_10 pb_10">
-                                                <a href="{{ route('admin_companies_delete', $item->id) }}"
+                                                @if ($item->status == 1)
+                                                <a href="{{ route('admin_companies_lock', $item->id) }}"
                                                     class="btn btn-danger btn-sm"
-                                                    onClick="return confirm('Are you sure?');">Delete</a>
+                                                    onClick="return confirm('Are you sure?');">Lock</a>
+                                                @else
+                                                <a href="{{ route('admin_companies_unlock', $item->id) }}"
+                                                    class="btn btn-primary btn-sm"
+                                                    onClick="return confirm('Are you sure?');">Unlock</a>
+                                                @endif
+                                                
                                             </td>
                                         </tr>
                                     @endforeach

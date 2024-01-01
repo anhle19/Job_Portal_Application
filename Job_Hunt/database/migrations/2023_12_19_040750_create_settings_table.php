@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
+            $table->integer('total_allowed_job');
+            $table->integer('total_allowed_featured_job');
+            $table->integer('total_allowed_photo');
+            $table->integer('total_allowed_video');
             $table->text('logo');
             $table->text('favicon');
             $table->text('top_bar_phone')->nullable();

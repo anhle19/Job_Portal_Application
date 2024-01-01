@@ -1,7 +1,8 @@
 @extends('front.layouts.app')
 
 @section('main-content')
-    <div class="page-top" style="background-image: url('{{ asset('uploads/' . $global_banner_data->banner_company_panel) }}')">
+    <div class="page-top"
+        style="background-image: url('{{ asset('uploads/' . $global_banner_data->banner_company_panel) }}')">
         <div class="bg"></div>
         <div class="container">
             <div class="row">
@@ -27,7 +28,7 @@
                         <div class="row">
                             <div class="col-md-12 mb-3">
                                 <label for="" class="form-label">Title *</label>
-                                <input type="text" class="form-control" name="title" value="{{ old('title') }}"/>
+                                <input type="text" class="form-control" name="title" value="{{ old('title') }}" />
                             </div>
                         </div>
                         <div class="mb-3">
@@ -69,13 +70,13 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="" class="form-label">Deadline *</label>
-                                <input type="text" name="deadline" class="form-control datepicker" 
-                                value="{{ old('deadline') ? old('deadline') : date('Y-m-d') }}" />
+                                <input type="text" name="deadline" class="form-control datepicker"
+                                    value="{{ old('deadline') ? old('deadline') : date('Y-m-d') }}" />
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="" class="form-label">Vacancy *</label>
-                                <input type="number" name="vacancy" class="form-control" min="1" 
-                                value="{{ old('vacancy') ? old('vacancy') : '1' }}" />
+                                <input type="number" name="vacancy" class="form-control" min="1"
+                                    value="{{ old('vacancy') ? old('vacancy') : '1' }}" />
                             </div>
                         </div>
 
@@ -84,7 +85,7 @@
                                 <label for="" class="form-label">Category *</label>
                                 <select name="job_category_id" class="form-control select2">
                                     @foreach ($job_categories as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -92,7 +93,7 @@
                                 <label for="" class="form-label">Location *</label>
                                 <select name="job_location_id" class="form-control select2">
                                     @foreach ($job_locations as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -103,7 +104,7 @@
                                 <label for="" class="form-label">Job Type *</label>
                                 <select name="job_type_id" class="form-control select2">
                                     @foreach ($job_types as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -111,7 +112,7 @@
                                 <label for="" class="form-label">Experience *</label>
                                 <select name="job_experience_id" class="form-control select2">
                                     @foreach ($job_experiences as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -122,7 +123,7 @@
                                 <label for="" class="form-label">Gender *</label>
                                 <select name="job_gender_id" class="form-control select2">
                                     @foreach ($job_genders as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -130,7 +131,7 @@
                                 <label for="" class="form-label">Salary Range *</label>
                                 <select name="job_salary_range_id" class="form-control select2">
                                     @foreach ($job_salary_ranges as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

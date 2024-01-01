@@ -40,7 +40,7 @@
                         </div>
                     </form>
 
-                    <h4 class="mt-4">Existing Photos</h4>
+                    <h4 class="mt-4">Existing Photos: {{ $photos->count() }} of {{ $settings->total_allowed_photo }}</h4>
                     <div class="photo-all">
                         @if ($photos->count() == 0)
                         <div class="row">

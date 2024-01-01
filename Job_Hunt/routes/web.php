@@ -77,7 +77,7 @@ Route::get('/post/{slug}', [PostController::class, 'detail'])->name('post');
 Route::get('/job_categories', [JobCategoryController::class, 'categories'])->name('job_categories');
 Route::get('/faq', [FaqController::class, 'index'])->name('faq');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
-Route::get('/pricing', [PricingController::class, 'index'])->name('pricing');
+// Route::get('/pricing', [PricingController::class, 'index'])->name('pricing');
 Route::post('/contact-submit', [ContactController::class, 'submit'])->name('contact_submit');
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::get('/create-account', [SignupController::class, 'index'])->name('signup');
@@ -120,8 +120,8 @@ Route::post('reset-password/company/submit', [
 
 Route::middleware('company:company')->group(function () {
     Route::get('/company/dashboard', [CompanyController::class, 'dashboard'])->name('company_dashboard');
-    Route::get('/company/orders', [CompanyController::class, 'orders'])->name('company_orders');
-    Route::get('/company/make-payment', [CompanyController::class, 'make_payment'])->name('company_make_payment');
+    // Route::get('/company/orders', [CompanyController::class, 'orders'])->name('company_orders');
+    // Route::get('/company/make-payment', [CompanyController::class, 'make_payment'])->name('company_make_payment');
     Route::get('/company/logout', [CompanyController::class, 'logout'])->name('company_logout');
 
     Route::get('/company/candidate-applications', [CompanyController::class, 'candidate_applications'])->name('company_candidate_applications');
@@ -151,14 +151,14 @@ Route::middleware('company:company')->group(function () {
     Route::post('/company/create-job-submit', [CompanyController::class, 'jobs_create_submit'])->name('company_jobs_create_submit');
 
     //Paypal
-    Route::post('/company/paypal/payment', [CompanyController::class, 'paypal'])->name('company_paypal');
-    Route::get('/company/paypal/success', [CompanyController::class, 'paypal_success'])->name('company_paypal_success');
-    Route::get('/company/paypal/cancel', [CompanyController::class, 'paypal_cancel'])->name('company_paypal_cancel');
+    // Route::post('/company/paypal/payment', [CompanyController::class, 'paypal'])->name('company_paypal');
+    // Route::get('/company/paypal/success', [CompanyController::class, 'paypal_success'])->name('company_paypal_success');
+    // Route::get('/company/paypal/cancel', [CompanyController::class, 'paypal_cancel'])->name('company_paypal_cancel');
 
-    //Stripe
-    Route::post('/company/stripe/payment', [CompanyController::class, 'stripe'])->name('company_stripe');
-    Route::get('/company/stripe/success', [CompanyController::class, 'stripe_success'])->name('company_stripe_success');
-    Route::get('/company/stripe/cancel', [CompanyController::class, 'stripe_cancel'])->name('company_stripe_cancel');
+    // //Stripe
+    // Route::post('/company/stripe/payment', [CompanyController::class, 'stripe'])->name('company_stripe');
+    // Route::get('/company/stripe/success', [CompanyController::class, 'stripe_success'])->name('company_stripe_success');
+    // Route::get('/company/stripe/cancel', [CompanyController::class, 'stripe_cancel'])->name('company_stripe_cancel');
 });
 
 /* Candidate */
@@ -276,8 +276,8 @@ Route::middleware(['admin:admin'])->group(function () {
     Route::get('/admin/job-categories-page', [AdminJobCategoryPageController::class, 'index'])->name('admin_job_categories_page');
     Route::post('/admin/job-categories-page/update', [AdminJobCategoryPageController::class, 'update'])->name('admin_job_categories_page_update');
 
-    Route::get('/admin/pricing-page', [AdminPricingPageController::class, 'index'])->name('admin_pricing_page');
-    Route::post('/admin/pricing-page/update', [AdminPricingPageController::class, 'update'])->name('admin_pricing_page_update');
+    // Route::get('/admin/pricing-page', [AdminPricingPageController::class, 'index'])->name('admin_pricing_page');
+    // Route::post('/admin/pricing-page/update', [AdminPricingPageController::class, 'update'])->name('admin_pricing_page_update');
 
     Route::get('/admin/other-page', [AdminOtherPageController::class, 'index'])->name('admin_other_page');
     Route::post('/admin/other-page/update', [AdminOtherPageController::class, 'update'])->name('admin_other_page_update');
@@ -352,12 +352,12 @@ Route::middleware(['admin:admin'])->group(function () {
     Route::post('/admin/faq/update/{id}', [AdminFaqController::class, 'update'])->name('admin_faq_update');
     Route::get('/admin/faq/delete/{id}', [AdminFaqController::class, 'delete'])->name('admin_faq_delete');
 
-    Route::get('/admin/package/view', [AdminPackageController::class, 'index'])->name('admin_package');
-    Route::get('/admin/package/create', [AdminPackageController::class, 'create'])->name('admin_package_create');
-    Route::post('/admin/package/store', [AdminPackageController::class, 'store'])->name('admin_package_store');
-    Route::get('/admin/package/edit/{id}', [AdminPackageController::class, 'edit'])->name('admin_package_edit');
-    Route::post('/admin/package/update/{id}', [AdminPackageController::class, 'update'])->name('admin_package_update');
-    Route::get('/admin/package/delete/{id}', [AdminPackageController::class, 'delete'])->name('admin_package_delete');
+    // Route::get('/admin/package/view', [AdminPackageController::class, 'index'])->name('admin_package');
+    // Route::get('/admin/package/create', [AdminPackageController::class, 'create'])->name('admin_package_create');
+    // Route::post('/admin/package/store', [AdminPackageController::class, 'store'])->name('admin_package_store');
+    // Route::get('/admin/package/edit/{id}', [AdminPackageController::class, 'edit'])->name('admin_package_edit');
+    // Route::post('/admin/package/update/{id}', [AdminPackageController::class, 'update'])->name('admin_package_update');
+    // Route::get('/admin/package/delete/{id}', [AdminPackageController::class, 'delete'])->name('admin_package_delete');
 
     Route::get('/admin/company-location/view', [AdminCompanyLocationController::class, 'index'])->name('admin_company_location');
     Route::get('/admin/company-location/create', [AdminCompanyLocationController::class, 'create'])->name('admin_company_location_create');
@@ -395,14 +395,18 @@ Route::middleware(['admin:admin'])->group(function () {
     Route::post('/admin/settings-update', [AdminSettingController::class, 'update'])->name('admin_settings_update');
 
     Route::get('/admin/companies', [AdminCompanyController::class, 'index'])->name('admin_companies');
-    Route::get('/admin/companies-delete/{id}', [AdminCompanyController::class, 'delete'])->name('admin_companies_delete');
+    // Route::get('/admin/companies-delete/{id}', [AdminCompanyController::class, 'delete'])->name('admin_companies_delete');
+    Route::get('/admin/companies-lock/{id}', [AdminCompanyController::class, 'lock'])->name('admin_companies_lock');
+    Route::get('/admin/companies-unlock/{id}', [AdminCompanyController::class, 'unlock'])->name('admin_companies_unlock');
     Route::get('/admin/companies-detail/{id}', [AdminCompanyController::class, 'companies_detail'])->name('admin_companies_detail');
     Route::get('/admin/companies-jobs/{id}', [AdminCompanyController::class, 'companies_jobs'])->name('admin_companies_jobs');
     Route::get('/admin/companies-applicants/{id}', [AdminCompanyController::class, 'companies_applicants'])->name('admin_companies_applicants');
     Route::get('/admin/companies-applicants-resume/{id}', [AdminCompanyController::class, 'companies_applicants_resume'])->name('admin_companies_applicants_resume');
 
     Route::get('/admin/candidates', [AdminCandidateController::class, 'index'])->name('admin_candidates');
-    Route::get('/admin/candidates-delete/{id}', [AdminCandidateController::class, 'delete'])->name('admin_candidates_delete');
+    // Route::get('/admin/candidates-delete/{id}', [AdminCandidateController::class, 'delete'])->name('admin_candidates_delete');
+    Route::get('/admin/candidates-lock/{id}', [AdminCandidateController::class, 'lock'])->name('admin_candidates_lock');
+    Route::get('/admin/candidates-unlock/{id}', [AdminCandidateController::class, 'unlock'])->name('admin_candidates_unlock');
     Route::get('/admin/candidates-detail/{id}', [AdminCandidateController::class, 'candidates_detail'])->name('admin_candidates_detail');
     Route::get('/admin/candidates-apllied-jobs/{id}', [AdminCandidateController::class, 'candidates_applied_jobs'])->name('admin_candidates_applied_jobs');
 });

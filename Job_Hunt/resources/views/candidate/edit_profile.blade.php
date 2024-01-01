@@ -47,14 +47,14 @@
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="">Designation </label>
+                                <label for="">Designation *</label>
                                 <div class="form-group">
                                     <input type="text" name="designation" class="form-control"
                                         value="{{ $candidate->designation }}" />
                                 </div>
                             </div>
                             <div class="col-md-12 mb-3">
-                                <label for="">Biography </label>
+                                <label for="">Biography *</label>
                                 <textarea name="biography" class="form-control editor" cols="30" rows="10">
                                     {{ $candidate->biography }}
                                 </textarea>
@@ -78,25 +78,25 @@
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="">Country </label>
+                                <label for="">Country *</label>
                                 <div class="form-group">
                                     <input type="text" name="country" class="form-control" value="{{ $candidate->country }}" />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="">Address </label>
+                                <label for="">Address *</label>
                                 <div class="form-group">
                                     <input type="text" name="address" class="form-control" value="{{ $candidate->address }}" />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="">State </label>
+                                <label for="">State *</label>
                                 <div class="form-group">
                                     <input type="text" name="state" class="form-control" value="{{ $candidate->state }}" />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="">City </label>
+                                <label for="">City *</label>
                                 <div class="form-group">
                                     <input type="text" name="city" class="form-control" value="{{ $candidate->city }}" />
                                 </div>
@@ -108,7 +108,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="">Gender </label>
+                                <label for="">Gender *</label>
                                 <div class="form-group">
                                     <select name="gender" class="form-control select2">
                                         <option value="Male" @if ($candidate->gender == 'Male')
@@ -121,7 +121,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="">Marital Status </label>
+                                <label for="">Marital Status *</label>
                                 <div class="form-group">
                                     <select name="marital_status" class="form-control select2">
                                         <option value="Married" @if ($candidate->marital_status == 'Married')
@@ -134,7 +134,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="">Date of Birth </label>
+                                <label for="">Date of Birth *</label>
                                 <div class="form-group">
                                     <input type="text" name="date_of_birth" class="form-control datepicker" value="{{ $candidate->date_of_birth }}"/>
                                 </div>

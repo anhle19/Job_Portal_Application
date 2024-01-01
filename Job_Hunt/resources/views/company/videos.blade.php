@@ -40,7 +40,7 @@
                         </div>
                     </form>
 
-                    <h4 class="mt-4">Existing Videos</h4>
+                    <h4 class="mt-4">Existing Videos: {{ $videos->count() }} of {{ $settings->total_allowed_video }}</h4>
                     <div class="video-all">
                         @if ($videos->count() == 0)
                             <div class="row">

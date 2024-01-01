@@ -11,6 +11,16 @@
                         <form action="{{ route('admin_settings_update') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group mb-3">
+                                <label>Total Allowed Job Post</label>
+                                <input type="number" min="1" value="{{ $settings->total_allowed_job }}" class="form-control w_100" name="total_allowed_job">
+                                <label>Total Allowed Featured Job</label>
+                                <input type="number" min="1" value="{{ $settings->total_allowed_featured_job }}" class="form-control w_100" name="total_allowed_jfeatured_job">
+                                <label>Total Allowed Photo</label>
+                                <input type="number" min="1" value="{{ $settings->total_allowed_photo }}" class="form-control w_100" name="total_allowed_photo">
+                                <label>Total Allowed Video</label>
+                                <input type="number" min="1" value="{{ $settings->total_allowed_video }}" class="form-control w_100" name="total_allowed_video">
+                            </div>
+                            <div class="form-group mb-3">
                                 <label>Existing Logo *</label>
                                 <div>
                                     <img src="{{ asset('uploads/'.$settings->logo) }}" alt="" class="w_150">

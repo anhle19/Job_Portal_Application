@@ -22,6 +22,7 @@
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-12">
+                    <h4>Total Jobs: {{ $jobs->count() }} of {{ $settings->total_allowed_job }}</h4>
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <tbody>

@@ -1,7 +1,8 @@
 @extends('front.layouts.app')
 
 @section('main-content')
-    <div class="page-top" style="background-image: url('{{ asset('uploads/' . $global_banner_data->banner_candidate_panel) }}')">
+    <div class="page-top"
+        style="background-image: url('{{ asset('uploads/' . $global_banner_data->banner_candidate_panel) }}')">
         <div class="bg"></div>
         <div class="container">
             <div class="row">
@@ -31,25 +32,29 @@
                             <div class="col-md-12 mb-3">
                                 <label for="">Company *</label>
                                 <div class="form-group">
-                                    <input type="text" name="company" class="form-control" value="{{ old('company') }}"/>
+                                    <input type="text" name="company" class="form-control"
+                                        value="{{ old('company') }}" />
                                 </div>
                             </div>
                             <div class="col-md-12 mb-3">
                                 <label for="">Designation *</label>
                                 <div class="form-group">
-                                    <input type="text" name="designation" class="form-control" value="{{ old('designation') }}"/>
+                                    <input type="text" name="designation" class="form-control"
+                                        value="{{ old('designation') }}" />
                                 </div>
                             </div>
                             <div class="col-md-12 mb-3">
                                 <label for="">Start Date *</label>
                                 <div class="form-group">
-                                    <input type="text" name="start_date" class="form-control" value="{{ old('start_date') }}"/>
+                                    <input type="text" name="start_date" class="form-control"
+                                        value="{{ old('start_date') }}" />
                                 </div>
                             </div>
                             <div class="col-md-12 mb-3">
                                 <label for="">End Date *</label>
                                 <div class="form-group">
-                                    <input type="text" name="end_date" class="form-control" value="{{ old('end_date') }}"/>
+                                    <input type="text" name="end_date" class="form-control"
+                                        value="{{ old('end_date') }}" />
                                 </div>
                             </div>
                             <div class="col-md-12">

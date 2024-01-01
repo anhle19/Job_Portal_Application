@@ -21,7 +21,7 @@ use Illuminate\Http\Request;
 class AdminCompanyController extends Controller
 {
     public function index() {
-        $companies = Company::where('status', 1)->get();
+        $companies = Company::whereIn('status', [1,2])->get();
         return view('admin.companies', compact('companies'));
     }
 
@@ -55,33 +55,47 @@ class AdminCompanyController extends Controller
         return view('admin.companies_applicants_resume', compact('candidate_single', 'educations', 'skills', 'experiences', 'awards', 'resumes'));
     }
 
-    public function delete($id) {
-        $company_data = Company::where('id', $id)->first();
-        $company_photos = CompanyPhoto::where('company_id', $id)->get();
-        $jobs = Job::where('company_id', $id)->get();
-        //Gỡ Job
-        if($jobs != null) {
-            foreach($jobs as $item) {
-                CandidateBookmark::where('job_id', $item->id)->delete();
-                CandidateApplication::where('job_id', $item->id)->delete();
-            }
-        }
-        //Gỡ logo của company
-        if($company_data->logo != null) {
-            unlink(public_path('uploads/'.$company_data->logo));
-        }
-        //Gỡ photo của company
-        if($company_photos != null) {
-            foreach($company_photos as $item) {
-                unlink(public_path('uploads/'.$item->photo));
-            }
-            CompanyPhoto::where('company_id', $id)->delete();
-        }
-        CompanyVideo::where('company_id', $id)->delete();
-        Job::where('company_id', $id)->delete();
-        Order::where('company_id', $id)->delete();
-        Company::where('id', $id)->delete();
+    // public function delete($id) {
+    //     $company_data = Company::where('id', $id)->first();
+    //     $company_photos = CompanyPhoto::where('company_id', $id)->get();
+    //     $jobs = Job::where('company_id', $id)->get();
+    //     //Gỡ Job
+    //     if($jobs != null) {
+    //         foreach($jobs as $item) {
+    //             CandidateBookmark::where('job_id', $item->id)->delete();
+    //             CandidateApplication::where('job_id', $item->id)->delete();
+    //         }
+    //     }
+    //     //Gỡ logo của company
+    //     if($company_data->logo != null) {
+    //         unlink(public_path('uploads/'.$company_data->logo));
+    //     }
+    //     //Gỡ photo của company
+    //     if($company_photos != null) {
+    //         foreach($company_photos as $item) {
+    //             unlink(public_path('uploads/'.$item->photo));
+    //         }
+    //         CompanyPhoto::where('company_id', $id)->delete();
+    //     }
+    //     CompanyVideo::where('company_id', $id)->delete();
+    //     Job::where('company_id', $id)->delete();
+    //     Order::where('company_id', $id)->delete();
+    //     Company::where('id', $id)->delete();
 
-        return redirect()->back()->with('success', 'Data is deleted successful!');
+    //     return redirect()->back()->with('success', 'Data is deleted successful!');
+    // }
+
+    public function lock($id) {
+        $company_data = Company::where('id', $id)->first();
+        $company_data->status = 2;
+        $company_data->update();
+        return redirect()->back()->with('success', 'Account is locked');
+    }
+
+    public function unlock($id) {
+        $company_data = Company::where('id', $id)->first();
+        $company_data->status = 1;
+        $company_data->update();
+        return redirect()->back()->with('success', 'Account is unlocked');
     }
 }

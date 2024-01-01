@@ -27,9 +27,9 @@
                             class="nav-item {{ Request::is('company-listing') || Request::is('company-detail/*') ? 'active' : '' }}">
                             <a href="{{ route('company_listing') }}" class="nav-link">Companies</a>
                         </li>
-                        <li class="nav-item {{ Request::is('pricing') ? 'active' : '' }}">
+                        {{-- <li class="nav-item {{ Request::is('pricing') ? 'active' : '' }}">
                             <a href="{{ route('pricing') }}" class="nav-link">Pricing</a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item {{ Request::is('faq') ? 'active' : '' }}">
                             <a href="{{ route('faq') }}" class="nav-link">FAQ</a>
                         </li>

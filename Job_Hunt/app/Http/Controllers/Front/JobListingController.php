@@ -89,14 +89,15 @@ class JobListingController extends Controller
     }
 
     public function detail($id) {
+        
+        //Kiểm tra ngày hết hạn nếu có package
+        // $company_id = $job_single->company_id;
+        // $order_data = Order::where('company_id', $company_id)->where('currently_active', 1)->first();
+        // if(date('Y-m-d') > $order_data->expire_date) {
+        //     return redirect()->route('home');
+        // } 
         $job_single = Job::with('rCompany', 'rJobCategory', 'rJobLocation', 'rJobType', 
         'rJobExperience', 'rJobGender', 'rJobSalaryRange')->where('id', $id)->first();
-        //Kiểm tra ngày hết hạn
-        $company_id = $job_single->company_id;
-        $order_data = Order::where('company_id', $company_id)->where('currently_active', 1)->first();
-        if(date('Y-m-d') > $order_data->expire_date) {
-            return redirect()->route('home');
-        } 
         $jobs = Job::with('rCompany', 'rJobCategory', 'rJobLocation', 'rJobType', 
         'rJobExperience', 'rJobGender', 'rJobSalaryRange')->where('job_category_id', $job_single->job_category_id)->orderBy('id', 'desc')->take(3)->get();
         $other_page_data = PageOtherItem::where('id', 1)->first();

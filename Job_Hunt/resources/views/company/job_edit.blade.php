@@ -1,7 +1,8 @@
 @extends('front.layouts.app')
 
 @section('main-content')
-    <div class="page-top" style="background-image: url('{{ asset('uploads/' . $global_banner_data->banner_company_panel) }}')">
+    <div class="page-top"
+        style="background-image: url('{{ asset('uploads/' . $global_banner_data->banner_company_panel) }}')">
         <div class="bg"></div>
         <div class="container">
             <div class="row">
@@ -27,7 +28,8 @@
                         <div class="row">
                             <div class="col-md-12 mb-3">
                                 <label for="" class="form-label">Title *</label>
-                                <input type="text" class="form-control" name="title" value="{{ $job_single->title }}"/>
+                                <input type="text" class="form-control" name="title"
+                                    value="{{ $job_single->title }}" />
                             </div>
                         </div>
                         <div class="mb-3">
@@ -69,13 +71,13 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="" class="form-label">Deadline *</label>
-                                <input type="text" name="deadline" class="form-control datepicker" 
-                                value="{{ $job_single->deadline }}" />
+                                <input type="text" name="deadline" class="form-control datepicker"
+                                    value="{{ $job_single->deadline }}" />
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="" class="form-label">Vacancy *</label>
-                                <input type="number" name="vacancy" class="form-control" min="1" 
-                                value="{{ $job_single->vacancy }}" />
+                                <input type="number" name="vacancy" class="form-control" min="1"
+                                    value="{{ $job_single->vacancy }}" />
                             </div>
                         </div>
 
@@ -84,9 +86,8 @@
                                 <label for="" class="form-label">Category *</label>
                                 <select name="job_category_id" class="form-control select2">
                                     @foreach ($job_categories as $item)
-                                    <option value="{{ $item->id }}" @if ($item->id == $job_single->job_category_id)
-                                        selected
-                                    @endif>{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}"
+                                            @if ($item->id == $job_single->job_category_id) selected @endif>{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -94,9 +95,8 @@
                                 <label for="" class="form-label">Location *</label>
                                 <select name="job_location_id" class="form-control select2">
                                     @foreach ($job_locations as $item)
-                                    <option value="{{ $item->id }}" @if ($item->id == $job_single->job_location_id)
-                                        selected
-                                    @endif>{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}"
+                                            @if ($item->id == $job_single->job_location_id) selected @endif>{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -107,9 +107,8 @@
                                 <label for="" class="form-label">Job Type *</label>
                                 <select name="job_type_id" class="form-control select2">
                                     @foreach ($job_types as $item)
-                                    <option value="{{ $item->id }}" @if ($item->id == $job_single->job_type_id)
-                                        selected
-                                    @endif>{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}"
+                                            @if ($item->id == $job_single->job_type_id) selected @endif>{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -117,9 +116,8 @@
                                 <label for="" class="form-label">Experience *</label>
                                 <select name="job_experience_id" class="form-control select2">
                                     @foreach ($job_experiences as $item)
-                                    <option value="{{ $item->id }}" @if ($item->id == $job_single->job_experience_id)
-                                        selected
-                                    @endif>{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}"
+                                            @if ($item->id == $job_single->job_experience_id) selected @endif>{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -130,9 +128,8 @@
                                 <label for="" class="form-label">Gender *</label>
                                 <select name="job_gender_id" class="form-control select2">
                                     @foreach ($job_genders as $item)
-                                    <option value="{{ $item->id }}" @if ($item->id == $job_single->job_gender_id)
-                                        selected
-                                    @endif>{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}"
+                                            @if ($item->id == $job_single->job_gender_id) selected @endif>{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -140,9 +137,8 @@
                                 <label for="" class="form-label">Salary Range *</label>
                                 <select name="job_salary_range_id" class="form-control select2">
                                     @foreach ($job_salary_ranges as $item)
-                                    <option value="{{ $item->id }}" @if ($item->id == $job_single->job_gender_id)
-                                        selected
-                                    @endif>{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}"
+                                            @if ($item->id == $job_single->job_gender_id) selected @endif>{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -158,23 +154,15 @@
                             <div class="col-md-6 mb-3">
                                 <label for="" class="form-label">Is Featured</label>
                                 <select name="is_featured" class="form-control select2">
-                                    <option value="1" @if ($job_single->is_featured == 1)
-                                        selected
-                                    @endif>Yes</option>
-                                    <option value="0" @if ($job_single->is_featured == 0)
-                                        selected
-                                    @endif>No</option>
+                                    <option value="1" @if ($job_single->is_featured == 1) selected @endif>Yes</option>
+                                    <option value="0" @if ($job_single->is_featured == 0) selected @endif>No</option>
                                 </select>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="" class="form-label">Is Urgent</label>
                                 <select name="is_urgent" class="form-control select2">
-                                    <option value="1" @if ($job_single->is_urgent == 1)
-                                        selected
-                                    @endif>Yes</option>
-                                    <option value="0" @if ($job_single->is_urgent == 0)
-                                        selected
-                                    @endif>No</option>
+                                    <option value="1" @if ($job_single->is_urgent == 1) selected @endif>Yes</option>
+                                    <option value="0" @if ($job_single->is_urgent == 0) selected @endif>No</option>
                                 </select>
                             </div>
                         </div>

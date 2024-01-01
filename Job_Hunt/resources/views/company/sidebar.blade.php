@@ -2,12 +2,14 @@
     <li class="list-group-item {{ Request::is('company/dashboard') ? 'active':''}} ">
         <a href="{{ route('company_dashboard') }}">Dashboard</a>
     </li>
-    <li class="list-group-item {{ Request::is('company/make-payment') ? 'active':''}}">
+
+    {{-- <li class="list-group-item {{ Request::is('company/make-payment') ? 'active':''}}">
         <a href="{{ route('company_make_payment') }}">Make Payment</a>
     </li>
     <li class="list-group-item {{ Request::is('company/orders') ? 'active':''}}">
         <a href="{{ route('company_orders') }}">Orders</a>
-    </li>
+    </li> --}}
+    
     <li class="list-group-item {{ Request::is('company/create-job') ? 'active':''}}">
         <a href="{{ route('company_jobs_create') }}">Create Job</a>
     </li>

@@ -1,7 +1,8 @@
 @extends('front.layouts.app')
 
 @section('main-content')
-    <div class="page-top" style="background-image: url('{{ asset('uploads/' . $global_banner_data->banner_candidate_panel) }}')">
+    <div class="page-top"
+        style="background-image: url('{{ asset('uploads/' . $global_banner_data->banner_candidate_panel) }}')">
         <div class="bg"></div>
         <div class="container">
             <div class="row">
@@ -42,18 +43,20 @@
                                         <th>Action</th>
                                     </tr>
                                     @foreach ($skills as $item)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->name }}</td>
-                                        <td>{{ $item->percentage }}</td>
-                                        <td>
-                                            <a href="{{ route('candidate_skill_edit', $item->id) }}" class="btn btn-warning btn-sm text-white"><i
-                                                    class="fas fa-edit"></i></a>
-                                            <a href="{{ route('candidate_skill_delete', $item->id) }}" class="btn btn-danger btn-sm"
-                                                onClick="return confirm('Are you sure?');"><i
-                                                    class="fas fa-trash-alt"></i></a>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->name }}</td>
+                                            <td>{{ $item->percentage }}</td>
+                                            <td>
+                                                <a href="{{ route('candidate_skill_edit', $item->id) }}"
+                                                    class="btn btn-warning btn-sm text-white"><i
+                                                        class="fas fa-edit"></i></a>
+                                                <a href="{{ route('candidate_skill_delete', $item->id) }}"
+                                                    class="btn btn-danger btn-sm"
+                                                    onClick="return confirm('Are you sure?');"><i
+                                                        class="fas fa-trash-alt"></i></a>
+                                            </td>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>

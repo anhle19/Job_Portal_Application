@@ -39,10 +39,10 @@
                                 @if (date('Y-m-d') < $job_single->deadline)
                                     @if (!Auth::guard('company')->check())
                                         <a href="{{ route('candidate_apply', $job_single->id) }}" class="btn btn-primary">Apply Now</a>
-                                        <a href="{{ route('candidate_bookmark_add', $job_single->id) }}"
-                                            class="btn btn-primary save-job">Bookmark</a>
                                     @endif
                                 @endif
+                                <a href="{{ route('candidate_bookmark_add', $job_single->id) }}"
+                                    class="btn btn-primary save-job">Bookmark</a>
                             </div>
                         </div>
                     </div>

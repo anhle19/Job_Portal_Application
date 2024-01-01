@@ -22,6 +22,11 @@
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-12">
+                    @if ($jobs->count() == 0)
+                        <div class="text-danger">
+                            No Data Found
+                        </div>
+                    @else
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <tbody>
@@ -57,7 +62,9 @@
                                 @endforeach
                             </tbody>
                         </table>
-                    </div>
+                    </div> 
+                    @endif
+                    
                 </div>
             </div>
         </div>

@@ -1,7 +1,8 @@
 @extends('front.layouts.app')
 
 @section('main-content')
-    <div class="page-top" style="background-image: url('{{ asset('uploads/' . $global_banner_data->banner_candidate_panel) }}')">
+    <div class="page-top"
+        style="background-image: url('{{ asset('uploads/' . $global_banner_data->banner_candidate_panel) }}')">
         <div class="bg"></div>
         <div class="container">
             <div class="row">
@@ -44,7 +45,8 @@
                             <div class="col-md-12 mb-3">
                                 <label for="">Date *</label>
                                 <div class="form-group">
-                                    <input type="text" name="date" class="form-control" value="{{ $award_single->date }}" />
+                                    <input type="text" name="date" class="form-control"
+                                        value="{{ $award_single->date }}" />
                                 </div>
                             </div>
                             <div class="col-md-12">

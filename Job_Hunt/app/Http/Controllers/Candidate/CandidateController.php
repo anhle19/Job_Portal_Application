@@ -43,25 +43,34 @@ class CandidateController extends Controller
         $obj = Candidate::where('id', Auth::guard('candidate')->user()->id)->first();
 
         $request->validate([
+            'photo' => 'required|image|mimes:png,jpg,jpeg,gif',
             'name' => 'required',
             'email' => 'required',
             'username' => 'required',
+            'designation' => 'required',
+            'biography' => 'required',
+            'phone' => 'required',
+            'country' => 'required',
+            'address' => 'required',
+            'state' => 'required',
+            'city' => 'required',
+            'gender' => 'required',
+            'marital_status' => 'required',
+            'date_of_birth' => 'required',
         ]);
 
-        if ($request->hasFile('photo')) {
-            $request->validate([
-                'photo' => 'image|mimes:png,jpg,jpeg,gif'
-            ]);
+        $request->validate([
+            'photo' => 'image|mimes:png,jpg,jpeg,gif'
+        ]);
 
-            if ($obj->photo != null) {
-                unlink(public_path('uploads/' . $obj->photo));
-            }
-
-            $ext = $request->file('photo')->extension();
-            $final_name = 'candidate_photo_' . time() . '.' . $ext;
-            $request->file('photo')->move(public_path('uploads/'), $final_name);
-            $obj->photo = $final_name;
+        if ($obj->photo != null) {
+            unlink(public_path('uploads/' . $obj->photo));
         }
+
+        $ext = $request->file('photo')->extension();
+        $final_name = 'candidate_photo_' . time() . '.' . $ext;
+        $request->file('photo')->move(public_path('uploads/'), $final_name);
+        $obj->photo = $final_name;
 
         $obj->name = $request->name;
         $obj->username = $request->username;
@@ -333,7 +342,7 @@ class CandidateController extends Controller
 
         $request->validate([
             'name' => ' required',
-            'file' => ' required|mimes:pdf,doc,docx',
+            'file' => ' required|mimes:pdf',
         ]);
 
         $obj = new CandidateResume();
@@ -413,8 +422,16 @@ class CandidateController extends Controller
     }
 
     public function apply($id) {
+        $candidate = Candidate::where('id', Auth::guard('candidate')->user()->id)->first();
         $existing_application = CandidateApplication::where('candidate_id', Auth::guard('candidate')->user()->id)
         ->where('job_id', $id)->count();
+
+        if($candidate->designation == null || $candidate->photo == null || $candidate->biography == null ||
+        $candidate->phone == null || $candidate->country == null || $candidate->address == null ||
+        $candidate->state == null || $candidate->city == null || $candidate->gender == null || $candidate->marital_status == null ||
+        $candidate->date_of_birth == null) {
+            return redirect()->back()->with('error', 'You must complete the profile before applying for a job!');
+        }
 
         if($existing_application > 0) {
             return redirect()->back()->with('error', 'Job is already applied!');

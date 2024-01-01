@@ -102,15 +102,18 @@
                         </form>
 
                         @if ($advertisement->job_listing_ad_status == 'Show')
-                        <div class="advertisement">
-                            @if ($advertisement->job_listing_ad == null)
-                            <a href=""><img src="{{ asset('uploads/ad_default.png') }}" alt="" /></a>
-                            @else
-                            <a href="{{ $advertisement->job_listing_ad_url }}" target="_blank"><img src="{{ asset('uploads/'.$advertisement->job_listing_ad) }}" alt="" /></a>
-                            @endif
-                        </div>
+                            <div class="advertisement">
+                                @if ($advertisement->job_listing_ad == null)
+                                    <a href=""><img src="{{ asset('uploads/ad_default.png') }}"
+                                            alt="" /></a>
+                                @else
+                                    <a href="{{ $advertisement->job_listing_ad_url }}" target="_blank"><img
+                                            src="{{ asset('uploads/' . $advertisement->job_listing_ad) }}"
+                                            alt="" /></a>
+                                @endif
+                            </div>
                         @endif
-                        
+
                     </div>
                 </div>
                 <div class="col-md-9">
@@ -119,21 +122,14 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="search-result-header">
-                                        <i class="fas fa-search"></i> Search
-                                        Result for Job Listing
+                                        <i class="fas fa-search"></i> 
+                                        Search Result for Job Listing
                                     </div>
                                 </div>
                                 @if ($jobs->count() == 0)
                                     <div class="text-danger">No Result Found</div>
                                 @else
                                     @foreach ($jobs as $item)
-                                    @php
-                                    $company_id = $item->company_id;
-                                    $order_data = \App\Models\Order::where('company_id',$company_id)->where('currently_active',1)->first();
-                                    if (date('Y-m-d') > $order_data->expire_date) {
-                                        continue;
-                                    }
-                                    @endphp
                                         <div class="col-md-12">
                                             <div class="item d-flex justify-content-start">
                                                 <div class="logo">
@@ -216,7 +212,6 @@
                                         </div>
                                     @endforeach
                                 @endif
-
                             </div>
                         </div>
                     </div>

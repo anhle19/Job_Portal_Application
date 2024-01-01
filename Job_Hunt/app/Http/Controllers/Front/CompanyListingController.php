@@ -24,13 +24,12 @@ class CompanyListingController extends Controller
      * Hiển thị danh sách company
      * Lưu lại dữ liệu của form tìm kiếm
      * Phân trang cho danh sách company
-     * Mỗi khi load qua tran mới sẽ lưu lại dữ liệu form tiềm kiếm trên url
+     * Mỗi khi load qua tran mới sẽ lưu lại dữ liệu form tìm kiếm trên url
      */
     public function index(Request $request) {
         //Lấy danh sách company kèm với khóa ngoại, tổng số job của company
-        //Chỉ những công ty có mua gói mới được xuất hiện
         $companies = Company::with('rCompanyLocation', 'rCompanyIndustry', 'rCompanySize')
-        ->withCount('rJob')->whereHas('rOrder')->orderBy('id', 'desc');
+        ->withCount('rJob')->orderBy('id', 'desc');
 
         $other_page_data = PageOtherItem::where('id', 1)->first();
         $company_locations = CompanyLocation::orderBy('name', 'asc')->get();
@@ -72,18 +71,18 @@ class CompanyListingController extends Controller
     }
 
     public function detail($id) {
-        //Kiểm tra ngày hết hạn
-        $order_data = Order::where('company_id', $id)->where('currently_active', 1)->first();
-        if(date('Y-m-d') > $order_data->expire_date) {
-            return redirect()->route('home');
-        }
+        // //Kiểm tra ngày hết hạn nếu có package
+        // $order_data = Order::where('company_id', $id)->where('currently_active', 1)->first();
+        // if(date('Y-m-d') > $order_data->expire_date) {
+        //     return redirect()->route('home');
+        // }
 
         $company_single = Company::with('rCompanyLocation', 'rCompanyIndustry', 'rCompanySize')
         ->withCount('rJob')->where('id', $id)->first();
         $jobs = Job::with('rCompany', 'rJobCategory', 'rJobLocation', 'rJobType', 
         'rJobExperience', 'rJobGender', 'rJobSalaryRange')->where('company_id', $company_single->id)->orderBy('id', 'desc')->get();
-        $photos = CompanyPhoto::where('company_id', $company_single->id)->orderBy('id', 'desc')->take(3)->get();
-        $videos = CompanyVideo::where('company_id', $company_single->id)->orderBy('id', 'desc')->take(3)->get();
+        $photos = CompanyPhoto::where('company_id', $company_single->id)->orderBy('id', 'desc')->get();
+        $videos = CompanyVideo::where('company_id', $company_single->id)->orderBy('id', 'desc')->get();
         $other_page_data = PageOtherItem::where('id', 1)->first();
 
         return view('front.company', compact('company_single', 'jobs', 'photos', 'videos', 'other_page_data'));

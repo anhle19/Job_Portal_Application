@@ -1,7 +1,7 @@
 <div class="main-sidebar">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="{{ route('admin_home') }}">Admin Panel</a>
+            <a href="{{ route('admin_home') }}">Admin Job Hunt</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <a href="{{ route('admin_home') }}"></a>
@@ -52,9 +52,11 @@
                     <li class="{{ Request::is('admin/contact-page') ? 'active' : '' }}"><a class="nav-link"
                             href="{{ route('admin_contact_page') }}"><i class="fas fa-angle-right"></i> Contact</a>
                     </li>
-                    <li class="{{ Request::is('admin/pricing-page') ? 'active' : '' }}"><a class="nav-link"
+
+                    {{-- <li class="{{ Request::is('admin/pricing-page') ? 'active' : '' }}"><a class="nav-link"
                             href="{{ route('admin_pricing_page') }}"><i class="fas fa-angle-right"></i> Pricing</a>
-                    </li>
+                    </li> --}}
+
                     <li class="{{ Request::is('admin/other-page') ? 'active' : '' }}"><a class="nav-link"
                             href="{{ route('admin_other_page') }}"><i class="fas fa-angle-right"></i> Others</a>
                     </li>
@@ -99,8 +101,11 @@
             </li>
 
             <li
-                class="nav-item dropdown {{ Request::is('admin/company-location/*') || Request::is('admin/company-industry/*')||
-                Request::is('admin/company-size/*') ? 'active' : '' }}">
+                class="nav-item dropdown {{ Request::is('admin/company-location/*') ||
+                Request::is('admin/company-industry/*') ||
+                Request::is('admin/company-size/*')
+                    ? 'active'
+                    : '' }}">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-hand-point-right"></i><span>
                         Company Section </span></a>
                 <ul class="dropdown-menu">
@@ -125,23 +130,35 @@
                         Subscriber Section </span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ Request::is('admin/all-subscribers') ? 'active' : '' }}"><a class="nav-link"
-                            href="{{ route('admin_all_subscribers') }}"><i class="fas fa-angle-right"></i> All Subscribers</a>
+                            href="{{ route('admin_all_subscribers') }}"><i class="fas fa-angle-right"></i> All
+                            Subscribers</a>
                     </li>
                     <li class="{{ Request::is('admin/subscriber-send-email') ? 'active' : '' }}"><a class="nav-link"
-                            href="{{ route('admin_subscriber_send_email') }}"><i class="fas fa-angle-right"></i> Send Email to Subscribers</a>
+                            href="{{ route('admin_subscriber_send_email') }}"><i class="fas fa-angle-right"></i> Send
+                            Email to Subscribers</a>
                     </li>
                 </ul>
             </li>
 
-            <li class="nav-item dropdown {{ Request::is('admin/companies') || Request::is('admin/companies-detail/*') ||
-            Request::is('admin/companies-jobs/*') || Request::is('admin/companies-applicants/*') || Request::is('admin/companies-applicants-resume/*') ? 'active' : '' }}">
+            <li
+                class="nav-item dropdown {{ Request::is('admin/companies') ||
+                Request::is('admin/companies-detail/*') ||
+                Request::is('admin/companies-jobs/*') ||
+                Request::is('admin/companies-applicants/*') ||
+                Request::is('admin/companies-applicants-resume/*')
+                    ? 'active'
+                    : '' }}">
                 <a class="nav-link" href="{{ route('admin_companies') }}" data-bs-toggle="tooltip"
                     data-bs-placement="right" title="Company Profile"><i class="fas fa-hand-point-right"></i>
                     <span>Company Profile</span></a>
             </li>
 
-            <li class="nav-item dropdown {{ Request::is('admin/candidates') || Request::is('admin/companies-detail/*') ||
-            Request::is('admin/companies-jobs/*') || Request::is('admin/companies-applicants/*') || Request::is('admin/companies-applicants-resume/*') ? 'active' : '' }}">
+            <li
+                class="nav-item dropdown {{ Request::is('admin/candidates') ||
+                Request::is('admin/candidates-detail/*') ||
+                Request::is('admin/candidates-applied-jobs/*')
+                    ? 'active'
+                    : '' }}">
                 <a class="nav-link" href="{{ route('admin_candidates') }}" data-bs-toggle="tooltip"
                     data-bs-placement="right" title="Candidate Profile"><i class="fas fa-hand-point-right"></i>
                     <span>Candiate Profile</span></a>
@@ -183,11 +200,11 @@
                     <span>FAQ</span></a>
             </li>
 
-            <li class="nav-item dropdown {{ Request::is('admin/package/*') ? 'active' : '' }}">
+            {{-- <li class="nav-item dropdown {{ Request::is('admin/package/*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('admin_package') }}" data-bs-toggle="tooltip"
                     data-bs-placement="right" title="Package"><i class="fas fa-hand-point-right"></i>
                     <span>Package</span></a>
-            </li>
+            </li> --}}
 
             <li class="nav-item dropdown {{ Request::is('admin/settings') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('admin_settings') }}" data-bs-toggle="tooltip"

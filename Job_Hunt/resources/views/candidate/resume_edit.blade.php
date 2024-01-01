@@ -1,7 +1,8 @@
 @extends('front.layouts.app')
 
 @section('main-content')
-    <div class="page-top" style="background-image: url('{{ asset('uploads/' . $global_banner_data->banner_candidate_panel) }}')">
+    <div class="page-top"
+        style="background-image: url('{{ asset('uploads/' . $global_banner_data->banner_candidate_panel) }}')">
         <div class="bg"></div>
         <div class="container">
             <div class="row">
@@ -22,16 +23,19 @@
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-12">
-                    <a href="{{ route('candidate_resume') }}" class="btn btn-primary btn-sm mb-2"><i class="fas fa-plus"></i>
+                    <a href="{{ route('candidate_resume') }}" class="btn btn-primary btn-sm mb-2"><i
+                            class="fas fa-plus"></i>
                         See All
                     </a>
-                    <form action="{{ route('candidate_resume_update', $resume_single->id) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('candidate_resume_update', $resume_single->id) }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-md-12 mb-3">
                                 <label for="">Name *</label>
                                 <div class="form-group">
-                                    <input type="text" name="name" class="form-control" value="{{ $resume_single->name }}" />
+                                    <input type="text" name="name" class="form-control"
+                                        value="{{ $resume_single->name }}" />
                                 </div>
                             </div>
                             <div class="col-md-12 mb-3">
