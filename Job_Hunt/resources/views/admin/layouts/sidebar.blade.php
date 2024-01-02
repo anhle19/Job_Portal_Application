@@ -9,7 +9,7 @@
 
         <ul class="sidebar-menu">
 
-            <li class="{{ Request::is('admin/home') ? 'active' : '' }}"><a class="nav-link"
+            <li class="{{ Request::is('admin/home') || Request::is('admin/home-detail/*') ? 'active' : '' }}"><a class="nav-link"
                     href="{{ route('admin_home') }}" data-bs-toggle="tooltip" data-bs-placement="right"
                     title="Dashboard"><i class="fas fa-hand-point-right"></i>
                     <span>Dashboard</span></a></li>

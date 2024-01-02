@@ -4,7 +4,7 @@
 
 @section('button')
     <div>
-        <a href="{{ route('admin_companies') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Back to previous</a>
+        <a href="{{ route('admin_companies') }}" class="btn btn-primary">Back</a>
     </div>
 @endsection
 

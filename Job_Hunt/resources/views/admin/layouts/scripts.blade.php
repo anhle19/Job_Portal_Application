@@ -17,3 +17,4 @@
 <script src="{{ asset('dist/js/fontawesome-iconpicker.js') }}"></script>
 <script src="{{ asset('dist/js/bootstrap4-toggle.min.js') }}"></script>
 <script src="{{ asset('dist-front/tinymce/tinymce.min.js') }}"></script>
+<script src="https://kit.fontawesome.com/084ba596d4.js" crossorigin="anonymous"></script>

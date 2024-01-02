@@ -2,6 +2,12 @@
 
 @section('heading', 'Candidate Detail')
 
+@section('button')
+    <div>
+        <a href="{{ route('admin_candidates') }}" class="btn btn-primary"> Back</a>
+    </div>
+@endsection
+
 @section('main-content')
     <div class="section-body">
         <div class="row">

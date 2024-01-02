@@ -14,7 +14,7 @@
                                 <label>Total Allowed Job Post</label>
                                 <input type="number" min="1" value="{{ $settings->total_allowed_job }}" class="form-control w_100" name="total_allowed_job">
                                 <label>Total Allowed Featured Job</label>
-                                <input type="number" min="1" value="{{ $settings->total_allowed_featured_job }}" class="form-control w_100" name="total_allowed_jfeatured_job">
+                                <input type="number" min="1" value="{{ $settings->total_allowed_featured_job }}" class="form-control w_100" name="total_allowed_featured_job">
                                 <label>Total Allowed Photo</label>
                                 <input type="number" min="1" value="{{ $settings->total_allowed_photo }}" class="form-control w_100" name="total_allowed_photo">
                                 <label>Total Allowed Video</label>

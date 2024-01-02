@@ -43,6 +43,10 @@ class AdminSettingController extends Controller
             $obj->favicon = $final_name;
         }
 
+        $obj->total_allowed_job = $request->total_allowed_job;
+        $obj->total_allowed_featured_job = $request->total_allowed_featured_job;
+        $obj->total_allowed_photo = $request->total_allowed_photo;
+        $obj->total_allowed_video = $request->total_allowed_video;
         $obj->top_bar_phone = $request->top_bar_phone;
         $obj->top_bar_email = $request->top_bar_email;
         $obj->footer_phone = $request->footer_phone;

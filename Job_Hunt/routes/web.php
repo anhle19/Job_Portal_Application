@@ -251,7 +251,10 @@ Route::get('/admin/reset-password/{token}/{email}', [AdminLoginController::class
 
 /* Root route */
 Route::middleware(['admin:admin'])->group(function () {
+    //Dashboard routes
     Route::get('/admin/home', [AdminHomeController::class, 'index'])->name('admin_home');
+    Route::get('/admin/home-detail/{id}', [AdminHomeController::class, 'detail'])->name('admin_home_detail');
+
     Route::get('/admin/edit-profile', [AdminProfileController::class, 'index'])->name('admin_edit_profile');
     Route::post('/admin/profile-submit', [AdminProfileController::class, 'profile_submit'])->name('admin_profile_submit');
 
