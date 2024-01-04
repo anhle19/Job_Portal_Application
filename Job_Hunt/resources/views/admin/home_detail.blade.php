@@ -92,7 +92,7 @@
                                         <td>{{ $total_job_approved }}</td>
                                         <td>{{ $total_job_rejected }}</td>
                                         <td>
-                                            <a href="{{ route('job', $item->id) }}"
+                                            <a href="{{ route('job', $item->id) }}" target="_blank"
                                                 class="badge bg-primary text-white w-100 mb-2">Detail</a>
                                         </td>
                                     </tr>

@@ -41,7 +41,8 @@ class JobListingController extends Controller
             'type' => $request->type,
             'experience' => $request->experience,
             'gender' => $request->job_gender,
-            'salary_range' => $request->job_salary_range
+            'salary_range' => $request->job_salary_range,
+            'just_featured_job' => $request->just_featured_job,
         );
 
         if ($request->title != null) {
@@ -70,6 +71,10 @@ class JobListingController extends Controller
 
         if ($request->job_salary_range != null) {
             $jobs = $jobs->where('job_salary_range_id', $request->job_salary_range);
+        }
+
+        if($request->just_featured_job != null) {
+            $jobs = $jobs->where('is_featured', 1);
         }
 
         $jobs = $jobs->paginate(9);

@@ -256,7 +256,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="all">
-                            <a href="{{ route('job_listing') }}" class="btn btn-primary">See All Jobs</a>
+                            <a href="{{ url('job-listing?just_featured_job=1') }}" class="btn btn-primary">See All Jobs</a>
                         </div>
                     </div>
                 </div>

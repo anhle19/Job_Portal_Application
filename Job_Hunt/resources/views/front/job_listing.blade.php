@@ -94,6 +94,16 @@
                                 </select>
                             </div>
 
+                            <div class="widget">
+                                <h2>Just Featured Job</h2>
+                                <select name="just_featured_job" class="form-control select2">
+                                    <option value="">No</option>
+                                    <option value="1" @if ($form_data['just_featured_job'] == 1)
+                                        selected
+                                    @endif>Yes</option>
+                                </select>
+                            </div>
+
                             <div class="filter-button">
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fas fa-search"></i> Filter
